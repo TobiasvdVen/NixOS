@@ -44,7 +44,7 @@
 
   security.rtkit.enable = true;
 
-    services = {
+  services = {
     # Enable the X11 windowing system.
     # You can disable this if you're only using the Wayland session.
     xserver = {
@@ -72,12 +72,81 @@
       alsa.support32Bit = true;
       pulse.enable = true;
 
-      extraConfig.pipewire."92-low-latency" = {
-        "context.properties" = {
-          "default.clock.rate" = 48000;
-          "default.clock.quantum" = 8192;
-          "default.clock.min-quantum" = 8192;
-          "default.clock.max-quantum" = 8192;
+      extraConfig = {
+        pipewire = {
+          "92-low-latency" = {
+            "context.properties" = {
+              "default.clock.rate" = 48000;
+              "default.clock.quantum" = 8192;
+              "default.clock.min-quantum" = 8192;
+              "default.clock.max-quantum" = 8192;
+            };
+          };
+
+          rtconfig = {
+            "context.modules" = [
+              {
+                name = "libpipewire-module-rt";
+                args = {
+                  # Real-time priority (1-99, higher = more priority)
+                  "rt.prio" = 88;
+
+                  # Nice level for non-RT threads (-20 to 19, lower = higher priority)
+                  "nice.level" = -11;
+
+                  # RT time limits as fraction of period (alternative to above)
+                  "rt.time.soft" = -1; # Unlimited
+                  "rt.time.hard" = -1; # Unlimited
+
+                  # Use rtkit for acquiring RT privileges
+                  "uclamp.min" = 0;
+                  "uclamp.max" = 1024;
+                };
+                flags = [
+                  "ifexists"
+                  "nofail"
+                ];
+              }
+            ];
+          };
+        };
+
+        pipewire-pulse = {
+          "92-low-latency" = {
+            "context.properties" = {
+              "default.clock.rate" = 48000;
+              "default.clock.quantum" = 8192;
+              "default.clock.min-quantum" = 8192;
+              "default.clock.max-quantum" = 8192;
+            };
+          };
+
+          rtconfig = {
+            "context.modules" = [
+              {
+                name = "libpipewire-module-rt";
+                args = {
+                  # Real-time priority (1-99, higher = more priority)
+                  "rt.prio" = 88;
+
+                  # Nice level for non-RT threads (-20 to 19, lower = higher priority)
+                  "nice.level" = -11;
+
+                  # RT time limits as fraction of period (alternative to above)
+                  "rt.time.soft" = -1; # Unlimited
+                  "rt.time.hard" = -1; # Unlimited
+
+                  # Use rtkit for acquiring RT privileges
+                  "uclamp.min" = 0;
+                  "uclamp.max" = 1024;
+                };
+                flags = [
+                  "ifexists"
+                  "nofail"
+                ];
+              }
+            ];
+          };
         };
       };
 
