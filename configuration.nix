@@ -7,7 +7,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      /etc/nixos/hardware-configuration.nix
     ];
 
   # Bootloader.
@@ -183,6 +183,7 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       kdePackages.kate
+      zed-editor
     #  thunderbird
     ];
   };
@@ -198,11 +199,9 @@
   environment.systemPackages = with pkgs; [
     pavucontrol
     git
-    zed-editor
     util-linux
     linuxKernel.packages.linux_6_12.cpupower
     htop
-    gitkraken
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
   ];
