@@ -8,7 +8,7 @@
   outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations.personal = nixpkgs.lib.nixosSystem {
       modules = [
-        ./configuration.nix
+        ./personal.nix
       ];
     };
   };
