@@ -174,11 +174,8 @@
     pavucontrol
     git
     util-linux
-    linuxKernel.packages.linux_6_12.cpupower
     htop
   ];
-
-  powerManagement.cpuFreqGovernor = "performance";
 
   systemd.targets.sleep.enable = false;
   systemd.targets.suspend.enable = false;
