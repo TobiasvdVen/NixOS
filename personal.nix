@@ -59,15 +59,6 @@
 
       extraConfig = {
         pipewire = {
-          "92-low-latency" = {
-            "context.properties" = {
-              "default.clock.rate" = 48000;
-              "default.clock.quantum" = 8192;
-              "default.clock.min-quantum" = 8192;
-              "default.clock.max-quantum" = 8192;
-            };
-          };
-
           rtconfig = {
             "context.modules" = [
               {
@@ -97,15 +88,6 @@
         };
 
         pipewire-pulse = {
-          "92-low-latency" = {
-            "context.properties" = {
-              "default.clock.rate" = 48000;
-              "default.clock.quantum" = 8192;
-              "default.clock.min-quantum" = 8192;
-              "default.clock.max-quantum" = 8192;
-            };
-          };
-
           rtconfig = {
             "context.modules" = [
               {
@@ -156,8 +138,6 @@
       enable = true;
       settings.General.Experimental = false;
     };
-
-
   };
 
   users.users.tobias = {
@@ -175,7 +155,6 @@
   };
   programs.gamemode.enable = true;
   #programs.steam.gamescopeSession.enable = true;
-  #environment.systemPackages = with pkgs; [ mangohud ];
 
   nixpkgs.config.allowUnfree = true;
 
