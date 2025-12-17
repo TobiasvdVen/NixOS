@@ -42,6 +42,8 @@
         layout = "us";
         variant = "";
       };
+
+      videoDrivers = [ "amdgpu" ];
     };
 
     # Enable the KDE Plasma Desktop Environment.
@@ -154,6 +156,8 @@
       enable = true;
       settings.General.Experimental = false;
     };
+
+
   };
 
   users.users.tobias = {
@@ -166,6 +170,12 @@
   };
 
   programs.firefox.enable = true;
+  programs.steam = {
+    enable = true;
+  };
+  programs.gamemode.enable = true;
+  #programs.steam.gamescopeSession.enable = true;
+  #environment.systemPackages = with pkgs; [ mangohud ];
 
   nixpkgs.config.allowUnfree = true;
 
@@ -174,6 +184,8 @@
     git
     util-linux
     htop
+    mangohud
+    protonup-ng
   ];
 
   systemd.targets.sleep.enable = false;
