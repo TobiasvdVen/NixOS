@@ -162,7 +162,6 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       kdePackages.kate
-      zed-editor
     ];
   };
 
