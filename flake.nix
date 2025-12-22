@@ -25,5 +25,11 @@
         }
       ];
     };
+
+    nixosConfigurations.homelab = nixpkgs.lib.nixosSystem {
+      modules = [
+        ./homelab.nix
+      ];
+    };
   };
 }
