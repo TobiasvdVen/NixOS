@@ -9,6 +9,7 @@
     discord
     nmap
     net-tools
+    gittyup
   ];
 
   home.stateVersion = "25.11";
