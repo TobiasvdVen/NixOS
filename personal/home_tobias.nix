@@ -10,6 +10,7 @@
     nmap
     net-tools
     gittyup
+    signal-desktop
   ];
 
   home.stateVersion = "25.11";
