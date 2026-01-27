@@ -165,6 +165,7 @@
     htop
     mangohud
     protonup-ng
+    nixd
   ];
 
   systemd.targets.sleep.enable = false;
