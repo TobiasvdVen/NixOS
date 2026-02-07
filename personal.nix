@@ -12,6 +12,7 @@
 
   networking.hostName = "personal";
   networking.networkmanager.enable = true;
+  networking.firewall.checkReversePath = false;
 
   time.timeZone = "Europe/Amsterdam";
 
@@ -166,6 +167,8 @@
     mangohud
     protonup-ng
     nixd
+    protonvpn-gui
+    wireguard-tools
   ];
 
   systemd.targets.sleep.enable = false;
