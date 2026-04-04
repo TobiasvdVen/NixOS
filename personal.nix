@@ -169,6 +169,8 @@
     nixd
     protonvpn-gui
     wireguard-tools
+    obsidian
+    keymapp
   ];
 
   systemd.targets.sleep.enable = false;
