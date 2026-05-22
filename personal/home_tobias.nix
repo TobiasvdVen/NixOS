@@ -11,6 +11,7 @@
     net-tools
     gittyup
     signal-desktop
+    faugus-launcher
   ];
 
   home.stateVersion = "25.11";
