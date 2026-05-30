@@ -12,7 +12,10 @@
 
   networking.hostName = "homelab";
   networking.networkmanager.enable = true;
-  networking.firewall.allowedTCPPorts = [ 8080 ];
+  networking.firewall = {
+    allowedTCPPorts = [ 443 8080 53 ];
+    allowedUDPPorts = [ 53 ];
+  };
 
   time.timeZone = "Europe/Amsterdam";
 
@@ -62,6 +65,22 @@
       enable = true;
     };
 
+  services.pihole-ftl = {
+    enable = true;
+    settings = {
+      dns = {
+        upstreams = [ "9.9.9.9" "1.1.1.1" ];
+
+        hosts = [ "192.168.178.30 homelab" "192.168.178.30 pihole.homelab" ];
+      };
+    };
+  };
+
+  services.pihole-web = {
+    enable = true;
+    ports = [ "4040" ];
+  };
+
   services.traefik = {
       enable = true;
       staticConfigOptions = {
@@ -100,8 +119,26 @@
       };
 
       dynamicConfigOptions = {
-        http.routers = {};
-        http.services = {};
+        http = {
+          routers = {
+            pihole-web = {
+              entryPoints = ["websecure"];
+              service = "pihole-web";
+              rule = "Host(`pihole.homelab`)";
+              tls.certResolver = "letsencrypt";
+            };
+          };
+
+          services = {
+           pihole-web = {
+             loadBalancer = {
+               servers = [
+                 { url = "http://127.0.0.1:4040"; }
+               ];
+             };
+           };
+          };
+        };
       };
     };
 
