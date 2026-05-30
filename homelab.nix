@@ -12,7 +12,7 @@
 
   networking.hostName = "homelab";
   networking.networkmanager.enable = true;
-  networking.firewall.allowedTCPPorts = [ 8080 ];
+  networking.firewall.allowedTCPPorts = [ 8080, 3000 ];
 
   time.timeZone = "Europe/Amsterdam";
 
@@ -62,6 +62,11 @@
       enable = true;
     };
 
+  services.hydra = {
+    enable = true;
+    hydraURL = "hydra.homelab:3000"
+  }
+
   services.traefik = {
       enable = true;
       staticConfigOptions = {
@@ -100,8 +105,20 @@
       };
 
       dynamicConfigOptions = {
-        http.routers = {};
-        http.services = {};
+        http.routers = {
+          hydra = {
+            entryPoints = ["websecure"];
+            service = "hydra";
+            tls.certResolver = "letsencrypt";
+          }
+        };
+        http.services = {
+          hydra.loadBalancer.servers = [
+            {
+              hydraURL = "localhost:3000";
+            }
+          ]
+        };
       };
     };
 
