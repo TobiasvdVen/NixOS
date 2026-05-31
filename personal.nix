@@ -171,6 +171,7 @@
     wireguard-tools
     obsidian
     keymapp
+    wezterm
   ];
 
   systemd.targets.sleep.enable = false;
