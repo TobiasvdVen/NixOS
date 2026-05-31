@@ -71,7 +71,7 @@
       dns = {
         upstreams = [ "9.9.9.9" "1.1.1.1" ];
 
-        hosts = [ "192.168.178.30 homelab" "192.168.178.30 pihole.homelab" ];
+        hosts = [ "192.168.178.30 homelab" "192.168.178.30 pihole.homelab" "192.168.178.30 hydra.homelab" ];
       };
     };
   };
@@ -79,6 +79,13 @@
   services.pihole-web = {
     enable = true;
     ports = [ "4040" ];
+  };
+
+  services.hydra = {
+    enable = true;
+    hydraURL = "http://127.0.0.1:3000";
+    notificationSender = "tobiasvdven@proton.me";
+    useSubstitutes = true;
   };
 
   services.traefik = {
@@ -127,6 +134,13 @@
               rule = "Host(`pihole.homelab`)";
               tls.certResolver = "letsencrypt";
             };
+
+            hydra = {
+              entryPoints = ["websecure"];
+              service = "hydra";
+              rule = "Host(`hydra.homelab`)";
+              tls.certResolver = "letsencrypt";
+            };
           };
 
           services = {
@@ -134,6 +148,14 @@
              loadBalancer = {
                servers = [
                  { url = "http://127.0.0.1:4040"; }
+               ];
+             };
+           };
+
+           hydra = {
+             loadBalancer = {
+               servers = [
+                 { url = "http://127.0.0.1:3000"; }
                ];
              };
            };
