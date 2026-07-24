@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, passivate, ... }:
 
 {
   home.username = "tobias";
@@ -12,6 +12,7 @@
     gittyup
     signal-desktop
     faugus-launcher
+    passivate
   ];
 
   home.stateVersion = "25.11";

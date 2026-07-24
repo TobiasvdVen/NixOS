@@ -3,7 +3,9 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-
+    passivate-git = {
+      url = "git+https://github.com/TobiasvdVenOrg/Passivate?ref=main&submodules=1";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
 
@@ -11,25 +13,35 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
-    nixosConfigurations.personal = nixpkgs.lib.nixosSystem {
-      modules = [
-        ./personal.nix
+  outputs = { nixpkgs, home-manager, passivate-git, ... }:
+    let
+      system = "x86_64-linux";
+      passivate = passivate-git.packages.${system}.default;
 
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
+      home_tobias = {
+        home-manager.extraSpecialArgs = {
+          inherit passivate;
+        };
 
-          home-manager.users.tobias = import ./personal/home_tobias.nix;
-        }
-      ];
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+
+        home-manager.users.tobias = import ./personal/home_tobias.nix;
+      };
+    in
+    {
+      nixosConfigurations.personal = nixpkgs.lib.nixosSystem {
+        modules = [
+          ./personal.nix
+          home-manager.nixosModules.home-manager
+          home_tobias
+        ];
+      };
+
+      nixosConfigurations.homelab = nixpkgs.lib.nixosSystem {
+        modules = [
+          ./homelab.nix
+        ];
+      };
     };
-
-    nixosConfigurations.homelab = nixpkgs.lib.nixosSystem {
-      modules = [
-        ./homelab.nix
-      ];
-    };
-  };
 }
