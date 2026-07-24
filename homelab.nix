@@ -71,7 +71,7 @@
       dns = {
         upstreams = [ "9.9.9.9" "1.1.1.1" ];
 
-        hosts = [ "192.168.178.30 homelab" "192.168.178.30 pihole.homelab" "192.168.178.30 hydra.homelab" ];
+        hosts = [ "192.168.178.30 homelab" "192.168.178.30 pihole.homelab" "192.168.178.30 hydra.homelab" "192.168.178.30 gitea.homelab" ];
       };
     };
   };
@@ -86,6 +86,12 @@
     hydraURL = "http://127.0.0.1:3000";
     notificationSender = "tobiasvdven@proton.me";
     useSubstitutes = true;
+  };
+
+  services.gitea = {
+    enable = true;
+    database.type = "sqlite3";
+    settings.server.HTTP_PORT = 5050;
   };
 
   services.traefik = {
@@ -141,24 +147,39 @@
               rule = "Host(`hydra.homelab`)";
               tls.certResolver = "letsencrypt";
             };
+
+            gitea = {
+              entryPoints = ["websecure"];
+              service = "gitea";
+              rule = "Host(`gitea.homelab`)";
+              tls.certResolver = "letsencrypt";
+            };
           };
 
           services = {
-           pihole-web = {
-             loadBalancer = {
-               servers = [
-                 { url = "http://127.0.0.1:4040"; }
-               ];
-             };
-           };
+            pihole-web = {
+              loadBalancer = {
+                servers = [
+                  { url = "http://127.0.0.1:4040"; }
+                ];
+              };
+            };
 
-           hydra = {
-             loadBalancer = {
-               servers = [
-                 { url = "http://127.0.0.1:3000"; }
-               ];
-             };
-           };
+            hydra = {
+              loadBalancer = {
+                servers = [
+                  { url = "http://127.0.0.1:3000"; }
+                ];
+              };
+            };
+
+            gitea = {
+              loadBalancer = {
+                servers = [
+                  { url = "http://127.0.0.1:5050"; }
+                ];
+              };
+            };
           };
         };
       };
