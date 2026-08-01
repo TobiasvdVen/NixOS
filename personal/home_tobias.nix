@@ -1,4 +1,4 @@
-{ pkgs, passivate, ... }:
+{ pkgs, passivate, gitfourchette, ... }:
 
 {
   home.username = "tobias";
@@ -13,6 +13,7 @@
     signal-desktop
     faugus-launcher
     passivate
+    gitfourchette
   ];
 
   home.stateVersion = "25.11";

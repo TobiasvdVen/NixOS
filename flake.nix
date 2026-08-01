@@ -6,6 +6,9 @@
     passivate-git = {
       url = "git+https://github.com/TobiasvdVenOrg/Passivate?ref=main&submodules=1";
     };
+    gitfourchette-git = {
+      url = "github:TobiasvdVen/gitfourchette-nix?ref=main";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
 
@@ -13,14 +16,16 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, passivate-git, ... }:
+  outputs = { nixpkgs, home-manager, passivate-git, gitfourchette-git, ... }:
     let
       system = "x86_64-linux";
       passivate = passivate-git.packages.${system}.default;
+      gitfourchette = gitfourchette-git.packages.${system}.default;
 
       home_tobias = {
         home-manager.extraSpecialArgs = {
           inherit passivate;
+          inherit gitfourchette;
         };
 
         home-manager.useGlobalPkgs = true;
