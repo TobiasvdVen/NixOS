@@ -14,13 +14,27 @@
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-tools-path.url = "path:./nixos_tools";
+    nil-git.url = "github:oxalica/nil";
   };
 
-  outputs = { nixpkgs, home-manager, passivate-git, gitfourchette-git, ... }:
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      passivate-git,
+      gitfourchette-git,
+      nixos-tools-path,
+      nil-git,
+      ...
+    }:
     let
       system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
       passivate = passivate-git.packages.${system}.default;
       gitfourchette = gitfourchette-git.packages.${system}.default;
+      nixos-tools = nixos-tools-path.packages.${system}.default;
+      nil = nil-git.packages.${system}.default;
 
       home_tobias = {
         home-manager.extraSpecialArgs = {
@@ -46,6 +60,14 @@
       nixosConfigurations.homelab = nixpkgs.lib.nixosSystem {
         modules = [
           ./homelab.nix
+        ];
+      };
+
+      devShells."${system}".default = pkgs.mkShell {
+        buildInputs = [
+          pkgs.package-version-server
+          nixos-tools
+          nil
         ];
       };
     };

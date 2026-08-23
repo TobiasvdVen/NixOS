@@ -1,2 +1,3 @@
 hardware-configuration.nix
 secrets
+/nixos_tools/target
