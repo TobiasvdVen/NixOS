@@ -181,11 +181,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1787080508,
-        "narHash": "sha256-YDcih+huAH0yZU9Fi5OOhaxPpemGcLNqBwmtysx1sww=",
+        "lastModified": 1787138771,
+        "narHash": "sha256-hWyoNnzL+9ij4TU0q0k05uk9YYEuMdenav0DfbTlsYM=",
         "ref": "main",
-        "rev": "8d5b335e4c07b2b63e664d57382777299e788888",
-        "revCount": 617,
+        "rev": "a70b03d344c4aedb59ea785054aac3b0312dd465",
+        "revCount": 619,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/TobiasvdVenOrg/Passivate"
