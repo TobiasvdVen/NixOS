@@ -3,15 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-    passivate-git = {
-      url = "git+https://github.com/TobiasvdVenOrg/Passivate?ref=main&submodules=1";
-    };
-    gitfourchette-git = {
-      url = "github:TobiasvdVen/gitfourchette-nix?ref=main";
-    };
+    passivate-git.url = "git+https://github.com/TobiasvdVenOrg/Passivate?ref=main&submodules=1";
+    gitfourchette-git.url = "github:TobiasvdVen/gitfourchette-nix?ref=main";
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
-
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-tools-path.url = "path:./nixos_tools";
@@ -28,6 +23,7 @@
       nil-git,
       ...
     }:
+
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
@@ -47,15 +43,24 @@
 
         home-manager.users.tobias = import ./personal/home_tobias.nix;
       };
-    in
-    {
-      nixosConfigurations.personal = nixpkgs.lib.nixosSystem {
+
+      import-hardware = {
+        imports = [
+          ./hardware-configuration.nix
+        ];
+      };
+
+      tobias-pc = nixpkgs.lib.nixosSystem {
         modules = [
-          ./personal.nix
+          import-hardware
+          ./modules/hosts/tobias_pc.nix
           home-manager.nixosModules.home-manager
           home_tobias
         ];
       };
+    in
+    {
+      nixosConfigurations.tobias-pc = tobias-pc;
 
       nixosConfigurations.homelab = nixpkgs.lib.nixosSystem {
         modules = [
