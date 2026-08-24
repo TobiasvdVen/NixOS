@@ -1,72 +1,24 @@
 {
-  description = "Root NixOS flake, which can compose the following distinct configurations: 'personal', ...";
+  description = "Development flake for NixOS configuration work, includes a dev shell that installs a nix lsp (nil) and custom NixOS tools (nt)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-    passivate-git.url = "git+https://github.com/TobiasvdVenOrg/Passivate?ref=main&submodules=1";
-    gitfourchette-git.url = "github:TobiasvdVen/gitfourchette-nix?ref=main";
-    home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixos-tools-path.url = "path:./nixos_tools";
     nil-git.url = "github:oxalica/nil";
+    tobias-pc.url = "path:./tobias-pc";
   };
 
   outputs =
-    {
-      nixpkgs,
-      home-manager,
-      passivate-git,
-      gitfourchette-git,
-      nixos-tools-path,
-      nil-git,
-      ...
-    }:
-
+    inputs:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
-      passivate = passivate-git.packages.${system}.default;
-      gitfourchette = gitfourchette-git.packages.${system}.default;
-      nixos-tools = nixos-tools-path.packages.${system}.default;
-      nil = nil-git.packages.${system}.default;
-
-      home_tobias = {
-        home-manager.extraSpecialArgs = {
-          inherit passivate;
-          inherit gitfourchette;
-        };
-
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-
-        home-manager.users.tobias = import ./personal/home_tobias.nix;
-      };
-
-      import-hardware = {
-        imports = [
-          ./hardware-configuration.nix
-        ];
-      };
-
-      tobias-pc = nixpkgs.lib.nixosSystem {
-        modules = [
-          import-hardware
-          ./modules/hosts/tobias_pc.nix
-          home-manager.nixosModules.home-manager
-          home_tobias
-        ];
-      };
+      pkgs = import inputs.nixpkgs { inherit system; };
+      nixos-tools = inputs.nixos-tools-path.packages.${system}.default;
+      nil = inputs.nil-git.packages.${system}.default;
+      modules = ./modules;
     in
     {
-      nixosConfigurations.tobias-pc = tobias-pc;
-
-      nixosConfigurations.homelab = nixpkgs.lib.nixosSystem {
-        modules = [
-          ./homelab.nix
-        ];
-      };
+      nixosConfigurations.tobias-pc = inputs.tobias-pc.mkTobiasPc { inherit modules; };
 
       devShells."${system}".default = pkgs.mkShell {
         buildInputs = [
