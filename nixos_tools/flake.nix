@@ -2,17 +2,26 @@
   description = "General utilties for managing the NixOS configuration and deploying systems.";
 
   inputs = {
-    nixpkgs.url      = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     rust-overlay.url = "github:oxalica/rust-overlay";
-    flake-utils.url  = "github:numtide/flake-utils";
+    flake-utils.url = "github:numtide/flake-utils";
     crane.url = "github:ipetkov/crane";
     tt-git.url = "github:TobiasvdVen/TvdvenTools";
   };
 
-  outputs = { self, nixpkgs, rust-overlay, flake-utils, crane, tt-git }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      rust-overlay,
+      flake-utils,
+      crane,
+      tt-git,
+    }:
     let
       tt = tt-git.tt;
-      systems = flake-utils.lib.eachDefaultSystem (system:
+      systems = flake-utils.lib.eachDefaultSystem (
+        system:
         let
           crane-args = {
             pname = "nt";
@@ -20,15 +29,26 @@
             src = ./.;
           };
 
-          tt-output = tt.mkRustOutput { inherit nixpkgs system rust-overlay crane crane-args; };
+          tt-output = tt.mkRustOutput {
+            inherit
+              nixpkgs
+              system
+              rust-overlay
+              crane
+              crane-args
+              ;
+          };
         in
         {
           devShells.default = tt-output.pkgs.mkShell {
-            buildInputs = tt-output.buildInputs;
+            buildInputs = tt-output.buildInputs ++ [
+              tt-git.packages.${system}.default
+            ];
           };
 
           packages.default = tt-output.build;
-        });
+        }
+      );
     in
-      systems;
-    }
+    systems;
+}
