@@ -15,10 +15,9 @@
       pkgs = import inputs.nixpkgs { inherit system; };
       nixos-tools = inputs.nixos-tools-path.packages.${system}.default;
       nil = inputs.nil-git.packages.${system}.default;
-      modules = ./modules;
     in
     {
-      nixosConfigurations.tobias-pc = inputs.tobias-pc.mkTobiasPc { inherit modules; };
+      nixosConfigurations.tobias-pc = inputs.tobias-pc;
 
       devShells."${system}".default = pkgs.mkShell {
         buildInputs = [
