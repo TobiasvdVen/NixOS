@@ -3,11 +3,21 @@ use eframe::App;
 use crate::app_model::AppModel;
 use crate::view::View;
 
-#[derive(Default)]
 pub struct NixosToolsApp
 {
     view: View,
     model: AppModel
+}
+
+impl NixosToolsApp
+{
+    pub fn new(model: AppModel) -> Self
+    {
+        Self {
+            view: View::default(),
+            model
+        }
+    }
 }
 
 impl App for NixosToolsApp
