@@ -6,6 +6,7 @@ edition = "2024"
 [dependencies]
 anyhow = "1.0.104"
 duct = "1.1.1"
+tempfs = "0.13.11"
 
 [lints]
 workspace = true

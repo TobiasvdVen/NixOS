@@ -1,2 +1,3 @@
 secrets
 /nixos_tools/target
+.passivate

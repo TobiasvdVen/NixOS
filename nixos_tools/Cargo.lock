@@ -1939,6 +1939,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "duct",
+ "tempfs",
 ]
 
 [[package]]
@@ -3105,6 +3106,12 @@ dependencies = [
  "rustix 1.1.4",
  "windows-sys 0.61.2",
 ]
+
+[[package]]
+name = "tempfs"
+version = "0.13.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "00e0b1f0bf4214730cc6efd3eac2b412350fcf4b818863285d5284cf9bae2f93"
 
 [[package]]
 name = "termcolor"
