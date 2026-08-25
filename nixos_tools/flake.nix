@@ -38,12 +38,27 @@
               crane-args
               ;
           };
+
+          pkgs = tt-output.pkgs;
+
+          libInputs = [
+            pkgs.wayland
+            pkgs.libxkbcommon
+            pkgs.libGL
+            pkgs.libgcc
+          ];
+
+          libPath = pkgs.lib.makeLibraryPath libInputs;
         in
         {
-          devShells.default = tt-output.pkgs.mkShell {
+          devShells.default = pkgs.mkShell {
             buildInputs = tt-output.buildInputs ++ [
               tt-git.packages.${system}.default
+              pkgs.wayland
+              pkgs.package-version-server
             ];
+
+            LD_LIBRARY_PATH = libPath;
           };
 
           packages.default = tt-output.build;

@@ -11,3 +11,11 @@ resolver = "2"
 panic = "abort"
 
 [workspace.dependencies]
+
+[workspace.lints.rust]
+unused_results = "warn"
+
+[workspace.lints.clippy]
+must_use_candidate = "allow"
+unwrap_used = "warn"
+expect_used = "warn"

@@ -4,3 +4,11 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+nixos_tools_core = { path = "../core" }
+
+anyhow = "1.0.104"
+eframe = "0.36.1"
+egui = "0.36.1"
+
+[lints]
+workspace = true
