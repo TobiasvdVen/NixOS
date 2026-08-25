@@ -1,6 +1,6 @@
 use std::fs;
 use std::io::{Read, Seek, SeekFrom, Write};
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 use anyhow::Context;
 use duct::cmd;
@@ -14,14 +14,17 @@ pub struct RebuildAction
 {
     pub mode: RebuildMode,
     pub target: RebuildTarget,
-    pub hardware_configuration_source: Option<HardwareConfigurationSource>
+    pub hardware_configuration_source: Option<HardwareConfigurationSource>,
+    pub flake_path: PathBuf
 }
 
 impl RebuildAction
 {
     pub fn execute(&self) -> anyhow::Result<String>
     {
-        Err(anyhow::format_err!("not implemented"))
+        let hardware_config = generate_hardware_config(&self.flake_path)?;
+
+        Err(anyhow::format_err!("asdf"))
     }
 }
 
@@ -54,21 +57,23 @@ pub mod tests
     use crate::rebuild_action::generate_hardware_config;
 
     #[test]
-    pub fn create_hardware_config_file()
+    pub fn create_hardware_config_file() -> anyhow::Result<()>
     {
-        let temp_dir = tempfs::TempDir::new("nixos_tools/create_hardware_config_file").unwrap();
+        let temp_dir = tempfs::TempDir::new("nixos_tools/create_hardware_config_file")?;
         let expected_file = temp_dir.as_ref().join("hardware-configuration.nix");
 
         {
-            let mut hardware_config = generate_hardware_config(temp_dir.as_ref()).unwrap();
+            let mut hardware_config = generate_hardware_config(temp_dir.as_ref())?;
 
             let mut content = String::new();
             _ = hardware_config.read_to_string(&mut content).unwrap();
             eprintln!("{content}");
 
-            assert!(fs::exists(&expected_file).unwrap());
+            assert!(fs::exists(&expected_file)?);
         }
 
-        assert!(!fs::exists(&expected_file).unwrap());
+        assert!(!fs::exists(&expected_file)?);
+
+        Ok(())
     }
 }

@@ -1,4 +1,7 @@
+use std::path::PathBuf;
+
 use egui::Color32;
+use nixos_tools_core::hardware_configuration_source::HardwareConfigurationSource;
 use nixos_tools_core::rebuild_action::RebuildAction;
 use nixos_tools_core::rebuild_mode::RebuildMode;
 use nixos_tools_core::rebuild_target::RebuildTarget;
@@ -30,7 +33,8 @@ impl View
             return Some(RebuildAction {
                 mode: self.rebuild_mode.clone(),
                 target: RebuildTarget::ThisMachine,
-                hardware_configuration_source: None
+                hardware_configuration_source: Some(HardwareConfigurationSource::Generate),
+                flake_path: PathBuf::new()
             });
         }
 
@@ -38,7 +42,7 @@ impl View
 
         _ = match &model.last_result
         {
-            Some(Ok(content)) => ui.label(content),
+            Some(Ok(content)) => ui.colored_label(Color32::GREEN, content),
             Some(Err(error)) => ui.colored_label(Color32::RED, error.to_string()),
             None => ui.label("...")
         };
