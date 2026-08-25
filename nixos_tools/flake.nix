@@ -23,10 +23,14 @@
       systems = flake-utils.lib.eachDefaultSystem (
         system:
         let
+          pre-pkgs = import nixpkgs { inherit system; };
           crane-args = {
             pname = "nt";
             version = "0.1.0";
             src = ./.;
+            nativeBuildInputs = [
+              pre-pkgs.nixos-install-tools
+            ];
           };
 
           tt-output = tt.mkRustOutput {
