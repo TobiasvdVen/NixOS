@@ -19,7 +19,7 @@ fn main() -> anyhow::Result<()>
         .pick_file()
         .ok_or(anyhow::format_err!("flake not found"))?;
 
-    let flake = Flake::load(&selected_file)?;
+    let flake = Flake::load(selected_file)?;
 
     let persistence_path = env::current_dir()?.join(".nixos_tools/default_window_state.json");
 

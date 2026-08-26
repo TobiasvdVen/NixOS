@@ -1,18 +1,25 @@
+use std::path::PathBuf;
+
 use nixos_tools_core::flake::Flake;
 use nixos_tools_core::rebuild_action::RebuildAction;
 use nixos_tools_core::rebuild_configuration::{self, RebuildConfiguration};
 
 pub struct AppModel
 {
+    pub working_directory: PathBuf,
     pub rebuild_configurations: Vec<RebuildConfiguration>,
     pub last_result: Option<Result<String, anyhow::Error>>
 }
 
 impl AppModel
 {
-    pub fn new(rebuild_configurations: Vec<RebuildConfiguration>) -> Self
+    pub fn new(
+        working_directory: PathBuf,
+        rebuild_configurations: Vec<RebuildConfiguration>
+    ) -> Self
     {
         Self {
+            working_directory,
             rebuild_configurations,
             last_result: None
         }
@@ -21,6 +28,7 @@ impl AppModel
     pub fn from_flake(flake: Flake) -> Self
     {
         let rebuild_configurations = flake
+            .output
             .nixos_configurations
             .into_iter()
             .map(|c| {
@@ -31,7 +39,7 @@ impl AppModel
             })
             .collect();
 
-        Self::new(rebuild_configurations)
+        Self::new(flake.path, rebuild_configurations)
     }
 
     pub fn update(&mut self, rebuild_action: RebuildAction)
