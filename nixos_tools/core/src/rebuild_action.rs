@@ -28,6 +28,7 @@ impl RebuildAction
             generate_hardware_config(&self.flake_path).with_context(|| format!("{self:?}"))?;
 
         let nixos_rebuild = cmd!(
+            "sudo",
             "nixos-rebuild",
             "--flake",
             format!("path:.#{}", self.configuration.name),

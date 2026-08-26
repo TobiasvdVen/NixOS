@@ -1,5 +1,3 @@
-use std::path::PathBuf;
-
 use egui::Color32;
 use nixos_tools_core::hardware_configuration_source::HardwareConfigurationSource;
 use nixos_tools_core::rebuild_action::RebuildAction;
