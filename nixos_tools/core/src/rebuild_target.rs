@@ -1,5 +1,6 @@
 use std::net::Ipv4Addr;
 
+#[derive(Debug)]
 pub enum RebuildTarget
 {
     ThisMachine,

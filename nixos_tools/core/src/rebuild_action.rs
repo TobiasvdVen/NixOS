@@ -1,5 +1,4 @@
-use std::fs;
-use std::io::{Read, Seek, SeekFrom, Write};
+use std::io::{Seek, SeekFrom, Write};
 use std::path::{Path, PathBuf};
 
 use anyhow::Context;
@@ -7,13 +6,16 @@ use duct::cmd;
 use tempfs::TempFile;
 
 use crate::hardware_configuration_source::HardwareConfigurationSource;
+use crate::rebuild_configuration::RebuildConfiguration;
 use crate::rebuild_mode::RebuildMode;
 use crate::rebuild_target::RebuildTarget;
 
+#[derive(Debug)]
 pub struct RebuildAction
 {
     pub mode: RebuildMode,
     pub target: RebuildTarget,
+    pub configuration: RebuildConfiguration,
     pub hardware_configuration_source: Option<HardwareConfigurationSource>,
     pub flake_path: PathBuf
 }
@@ -22,9 +24,20 @@ impl RebuildAction
 {
     pub fn execute(&self) -> anyhow::Result<String>
     {
-        let hardware_config = generate_hardware_config(&self.flake_path)?;
+        let _hardware_config =
+            generate_hardware_config(&self.flake_path).with_context(|| format!("{self:?}"))?;
 
-        Err(anyhow::format_err!("asdf"))
+        let nixos_rebuild = cmd!(
+            "nixos-rebuild",
+            "--flake",
+            format!("path:.#{}", self.configuration.name),
+            self.mode.to_string()
+        )
+        .dir(&self.flake_path)
+        .read()
+        .with_context(|| format!("{self:?}"))?;
+
+        Ok(nixos_rebuild)
     }
 }
 

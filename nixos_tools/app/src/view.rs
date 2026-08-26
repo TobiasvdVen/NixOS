@@ -1,7 +1,6 @@
 use std::path::PathBuf;
 
 use egui::Color32;
-use nixos_tools_core::flake::NixosConfiguration;
 use nixos_tools_core::hardware_configuration_source::HardwareConfigurationSource;
 use nixos_tools_core::rebuild_action::RebuildAction;
 use nixos_tools_core::rebuild_configuration::RebuildConfiguration;
@@ -48,14 +47,18 @@ impl View
                 self.selectable_rebuild_mode(ui, RebuildMode::DryActivate);
             });
 
-        if ui.button("GO").clicked()
+        if let Some(configuration) = &self.configuration
         {
-            return Some(RebuildAction {
-                mode: self.rebuild_mode.clone(),
-                target: RebuildTarget::ThisMachine,
-                hardware_configuration_source: Some(HardwareConfigurationSource::Generate),
-                flake_path: PathBuf::new()
-            });
+            if ui.button("GO").clicked()
+            {
+                return Some(RebuildAction {
+                    mode: self.rebuild_mode.clone(),
+                    target: RebuildTarget::ThisMachine,
+                    configuration: configuration.clone(),
+                    hardware_configuration_source: Some(HardwareConfigurationSource::Generate),
+                    flake_path: model.working_directory.clone()
+                });
+            }
         }
 
         _ = ui.separator();
@@ -63,7 +66,7 @@ impl View
         _ = match &model.last_result
         {
             Some(Ok(content)) => ui.colored_label(Color32::GREEN, content),
-            Some(Err(error)) => ui.colored_label(Color32::RED, error.to_string()),
+            Some(Err(error)) => ui.colored_label(Color32::RED, format!("{error:#}")),
             None => ui.label("...")
         };
 

@@ -2,7 +2,7 @@ use std::path::PathBuf;
 
 use nixos_tools_core::flake::Flake;
 use nixos_tools_core::rebuild_action::RebuildAction;
-use nixos_tools_core::rebuild_configuration::{self, RebuildConfiguration};
+use nixos_tools_core::rebuild_configuration::RebuildConfiguration;
 
 pub struct AppModel
 {

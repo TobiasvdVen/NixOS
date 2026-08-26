@@ -13,13 +13,13 @@ fn main() -> anyhow::Result<()>
 {
     let file_dialog = rfd::FileDialog::new();
 
-    let selected_file = file_dialog
+    let selected_directory = file_dialog
         .add_filter("flake", &["nix"])
         .set_directory("~/")
-        .pick_file()
+        .pick_folder()
         .ok_or(anyhow::format_err!("flake not found"))?;
 
-    let flake = Flake::load(selected_file)?;
+    let flake = Flake::load(selected_directory)?;
 
     let persistence_path = env::current_dir()?.join(".nixos_tools/default_window_state.json");
 
