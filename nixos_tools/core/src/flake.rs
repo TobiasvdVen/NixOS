@@ -27,7 +27,9 @@ impl Flake
 {
     pub fn load(directory: PathBuf) -> anyhow::Result<Self>
     {
-        let show_output = cmd!("nix", "flake", "show", &directory, "--json").read()?;
+        let show_output = cmd!("nix", "flake", "show", "path:.", "--json")
+            .dir(&directory)
+            .read()?;
 
         let flake_output: FlakeOutput = serde_json::from_str(&show_output)?;
 
