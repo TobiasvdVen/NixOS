@@ -50,6 +50,7 @@
             pkgs.libxkbcommon
             pkgs.libGL
             pkgs.libgcc
+            pkgs.dbus
           ];
 
           libPath = pkgs.lib.makeLibraryPath libInputs;
@@ -60,6 +61,7 @@
               tt-git.packages.${system}.default
               pkgs.wayland
               pkgs.package-version-server
+              pkgs.dbus
             ];
 
             LD_LIBRARY_PATH = libPath;

@@ -11,7 +11,7 @@ pub struct Flake
     pub nixos_configurations: HashMap<String, NixosConfiguration>
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize)]
 pub struct NixosConfiguration
 {
     pub r#type: String

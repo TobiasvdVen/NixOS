@@ -14,7 +14,7 @@ fn main() -> anyhow::Result<()>
     let file_dialog = rfd::FileDialog::new();
 
     let selected_file = file_dialog
-        .add_filter("flake", &[".nix"])
+        .add_filter("flake", &["nix"])
         .set_directory("~/")
         .pick_file()
         .ok_or(anyhow::format_err!("flake not found"))?;
@@ -33,7 +33,7 @@ fn main() -> anyhow::Result<()>
         ..Default::default()
     };
 
-    let model = AppModel::new(flake);
+    let model = AppModel::from_flake(flake);
 
     eframe::run_native(
         "NixOS Tools",
