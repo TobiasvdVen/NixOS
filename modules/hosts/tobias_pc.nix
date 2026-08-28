@@ -1,5 +1,12 @@
 { config, pkgs, ... }:
 {
+  networking.hostName = "tobias_pc";
+
+  imports = [
+    ./../features/locale.nix
+    ./../features/audio.nix
+  ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -8,25 +15,10 @@
     "flakes"
   ];
 
-  networking.hostName = "tobias_pc";
   networking.networkmanager.enable = true;
   networking.firewall.checkReversePath = false;
 
   time.timeZone = "Europe/Amsterdam";
-
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "nl_NL.UTF-8";
-    LC_IDENTIFICATION = "nl_NL.UTF-8";
-    LC_MEASUREMENT = "nl_NL.UTF-8";
-    LC_MONETARY = "nl_NL.UTF-8";
-    LC_NAME = "nl_NL.UTF-8";
-    LC_NUMERIC = "nl_NL.UTF-8";
-    LC_PAPER = "nl_NL.UTF-8";
-    LC_TELEPHONE = "nl_NL.UTF-8";
-    LC_TIME = "nl_NL.UTF-8";
-  };
 
   security.rtkit.enable = true;
 
@@ -48,92 +40,6 @@
     # Enable the KDE Plasma Desktop Environment.
     displayManager.sddm.enable = true;
     desktopManager.plasma6.enable = true;
-
-    pulseaudio.enable = false;
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-
-      extraConfig = {
-        pipewire = {
-          rtconfig = {
-            "context.modules" = [
-              {
-                name = "libpipewire-module-rt";
-                args = {
-                  # Real-time priority (1-99, higher = more priority)
-                  "rt.prio" = 88;
-
-                  # Nice level for non-RT threads (-20 to 19, lower = higher priority)
-                  "nice.level" = -11;
-
-                  # RT time limits as fraction of period (alternative to above)
-                  "rt.time.soft" = -1; # Unlimited
-                  "rt.time.hard" = -1; # Unlimited
-
-                  # Use rtkit for acquiring RT privileges
-                  "uclamp.min" = 0;
-                  "uclamp.max" = 1024;
-                };
-                flags = [
-                  "ifexists"
-                  "nofail"
-                ];
-              }
-            ];
-          };
-        };
-
-        pipewire-pulse = {
-          rtconfig = {
-            "context.modules" = [
-              {
-                name = "libpipewire-module-rt";
-                args = {
-                  # Real-time priority (1-99, higher = more priority)
-                  "rt.prio" = 88;
-
-                  # Nice level for non-RT threads (-20 to 19, lower = higher priority)
-                  "nice.level" = -11;
-
-                  # RT time limits as fraction of period (alternative to above)
-                  "rt.time.soft" = -1; # Unlimited
-                  "rt.time.hard" = -1; # Unlimited
-
-                  # Use rtkit for acquiring RT privileges
-                  "uclamp.min" = 0;
-                  "uclamp.max" = 1024;
-                };
-                flags = [
-                  "ifexists"
-                  "nofail"
-                ];
-              }
-            ];
-          };
-        };
-      };
-
-      wireplumber = {
-        enable = true;
-
-        extraConfig.bluetoothEnhancements = {
-          "monitor.bluez.properties" = {
-            "bluez5.roles" = [
-              "a2dp_sink"
-              "a2dp_source"
-              "ldac"
-            ];
-            "bluez5.codecs" = [ "ldac" ];
-            "bluez5.a2dp.ldac.quality" = "mq";
-          };
-        };
-      };
-    };
-
-    blueman.enable = false;
 
     ollama = {
       enable = true;
