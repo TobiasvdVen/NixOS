@@ -13,7 +13,8 @@
     let
       system = "x86_64-linux";
       pkgs = import inputs.nixpkgs { inherit system; };
-      nixos-tools = inputs.nixos-tools-path.packages.${system}.default;
+      nt = inputs.nixos-tools-path.packages.${system}.nt;
+      nixos_tools = inputs.nixos-tools-path.packages.${system}.nixos_tools;
       nil = inputs.nil-git.packages.${system}.default;
     in
     {
@@ -22,7 +23,8 @@
       devShells."${system}".default = pkgs.mkShell {
         buildInputs = [
           pkgs.package-version-server
-          nixos-tools
+          nt
+          nixos_tools
           nil
         ];
       };

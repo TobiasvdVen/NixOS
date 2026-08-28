@@ -593,11 +593,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1786135378,
-        "narHash": "sha256-OdOjM0Yrr/vjKrs7tfS/1xXK7PdlRhr5tRk7jhTnyLE=",
+        "lastModified": 1787602956,
+        "narHash": "sha256-6ExDjPexBMMcewm3RU6WHk9XBaG33521jhXxpxnL3n0=",
         "owner": "TobiasvdVen",
         "repo": "TvdvenTools",
-        "rev": "4b1261ee5e3edf6fe15abf3f7d604d14a77d1bcd",
+        "rev": "09bd08c33c414fab3044bfb40056e6874c3d054d",
         "type": "github"
       },
       "original": {

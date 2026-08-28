@@ -23,27 +23,7 @@
       systems = flake-utils.lib.eachDefaultSystem (
         system:
         let
-          pre-pkgs = import nixpkgs { inherit system; };
-          crane-args = {
-            pname = "nt";
-            version = "0.1.0";
-            src = ./.;
-            nativeBuildInputs = [
-              pre-pkgs.nixos-install-tools
-            ];
-          };
-
-          tt-output = tt.mkRustOutput {
-            inherit
-              nixpkgs
-              system
-              rust-overlay
-              crane
-              crane-args
-              ;
-          };
-
-          pkgs = tt-output.pkgs;
+          pkgs = tt.mkRustPkgs { inherit nixpkgs system rust-overlay; };
 
           libInputs = [
             pkgs.wayland
@@ -54,20 +34,64 @@
           ];
 
           libPath = pkgs.lib.makeLibraryPath libInputs;
+
+          nt-crane-args = {
+            pname = "nt";
+            version = "0.1.0";
+            src = ./.;
+            nativeBuildInputs = [
+              pkgs.nixos-install-tools
+            ];
+            strictDeps = true;
+          };
+
+          nixos_tools-crane-args = {
+            pname = "nixos_tools";
+            version = "0.1.0";
+            src = ./.;
+            nativeBuildInputs = [
+              pkgs.nixos-install-tools
+              pkgs.makeWrapper
+            ];
+            strictDeps = true;
+          };
+
+          rust-toolchain = tt.mkRustToolchain { inherit pkgs; };
+          default-crate-lib = crane.mkLib pkgs;
+          crane-lib = default-crate-lib.overrideToolchain rust-toolchain;
+
+          nt-crane-and-cargo = nt-crane-args // {
+            cargoArtifacts = crane-lib.buildDepsOnly nt-crane-args;
+          };
+
+          nixos_tools-crane-and-cargo = nixos_tools-crane-args // {
+            cargoArtifacts = crane-lib.buildDepsOnly nixos_tools-crane-args;
+            postInstall = ''
+              wrapProgram $out/bin/nixos_tools --prefix LD_LIBRARY_PATH : ${libPath}
+            '';
+            libs = libPath;
+            buildInputs = libInputs;
+          };
+
+          nt-build = crane-lib.buildPackage nt-crane-and-cargo;
+          nixos_tools-build = crane-lib.buildPackage nixos_tools-crane-and-cargo;
         in
         {
           devShells.default = pkgs.mkShell {
-            buildInputs = tt-output.buildInputs ++ [
+            buildInputs = [
               tt-git.packages.${system}.default
               pkgs.wayland
               pkgs.package-version-server
               pkgs.dbus
+              nt-build
+              nixos_tools-build
             ];
 
             LD_LIBRARY_PATH = libPath;
           };
 
-          packages.default = tt-output.build;
+          packages.nt = nt-build;
+          packages.nixos_tools = nixos_tools-build;
         }
       );
     in
