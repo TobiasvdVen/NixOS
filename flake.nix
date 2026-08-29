@@ -31,6 +31,10 @@
                 ];
               };
             };
+
+            packages = {
+              nil = inputs.nil-git;
+            };
         };
 
         systems = [
@@ -45,13 +49,12 @@
             ...
           }:
           {
-
             devShells.default = pkgs.mkShell {
               buildInputs = [
                 pkgs.package-version-server
-                inputs'.nixos-tools-path.nt
-                inputs'.nixos-tools-path.nixos_tools
-                inputs'.nixos-tools-path.packages.nil
+                inputs'.nixos-tools-path.packages.nt
+                inputs'.nixos-tools-path.packages.nixos_tools
+                inputs'.nil-git.packages.nil
               ];
             };
           };

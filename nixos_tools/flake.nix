@@ -43,6 +43,7 @@
               pkgs.nixos-install-tools
             ];
             strictDeps = true;
+            cargoExtraArgs = "-p nt";
           };
 
           nixos_tools-crane-args = {
@@ -54,6 +55,7 @@
               pkgs.makeWrapper
             ];
             strictDeps = true;
+            cargoExtraArgs = "-p nixos_tools";
           };
 
           rust-toolchain = tt.mkRustToolchain { inherit pkgs; };
