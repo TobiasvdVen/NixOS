@@ -31,10 +31,6 @@
                 ];
               };
             };
-
-            packages = {
-              nil = inputs.nil-git;
-            };
         };
 
         systems = [
