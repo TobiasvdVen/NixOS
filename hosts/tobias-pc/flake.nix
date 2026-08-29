@@ -14,7 +14,6 @@
 
   outputs =
     {
-      modules,
       nixpkgs,
       home-manager,
       passivate-git,
@@ -43,7 +42,7 @@
       };
 
       modules = [
-        ./../modules/configurations/tobias_personal.nix
+        ./../../modules/configurations/tobias_personal.nix
         home-manager.nixosModules.home-manager
         home_tobias
       ];

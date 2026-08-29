@@ -194,20 +194,6 @@
         "type": "github"
       }
     },
-    "modules": {
-      "flake": false,
-      "locked": {
-        "path": "../modules",
-        "type": "path"
-      },
-      "original": {
-        "path": "../modules",
-        "type": "path"
-      },
-      "parent": [
-        "tobias-pc"
-      ]
-    },
     "nil-git": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -604,17 +590,16 @@
       "inputs": {
         "gitfourchette-git": "gitfourchette-git",
         "home-manager": "home-manager",
-        "modules": "modules",
         "nil-git": "nil-git_2",
         "nixpkgs": "nixpkgs_9",
         "passivate-git": "passivate-git"
       },
       "locked": {
-        "path": "./tobias-pc",
+        "path": "./hosts/tobias-pc",
         "type": "path"
       },
       "original": {
-        "path": "./tobias-pc",
+        "path": "./hosts/tobias-pc",
         "type": "path"
       },
       "parent": []

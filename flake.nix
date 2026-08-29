@@ -6,7 +6,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixos-tools-path.url = "path:./nixos_tools";
     nil-git.url = "github:oxalica/nil";
-    tobias-pc.url = "path:./tobias-pc";
+    tobias-pc.url = "path:./hosts/tobias-pc";
   };
 
   outputs =
