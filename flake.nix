@@ -26,7 +26,7 @@
         flake = {
             nixosConfigurations = {
               tobias-pc = inputs.nixpkgs.lib.nixosSystem {
-                modules = inputs.tobias-pc.bla ++ [
+                modules = inputs.tobias-pc.modules ++ [
                   ./hardware-configuration.nix
                 ];
               };

@@ -2,10 +2,6 @@
   description = "NixOS system configuration for tobias-pc";
 
   inputs = {
-    modules = {
-      url = ../modules;
-      flake = false;
-    };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     passivate-git.url = "git+https://github.com/TobiasvdVenOrg/Passivate?ref=main&submodules=1";
     gitfourchette-git.url = "github:TobiasvdVen/gitfourchette-nix?ref=main";
@@ -46,13 +42,13 @@
         home-manager.users.tobias = import ./home_tobias.nix;
       };
 
-        bla = [
-                "${modules}/hosts/tobias_pc.nix"
-                home-manager.nixosModules.home-manager
-                home_tobias
-              ];
+      modules = [
+        ./../modules/hosts/tobias_pc.nix
+        home-manager.nixosModules.home-manager
+        home_tobias
+      ];
     in
     {
-      inherit bla;
+      inherit modules;
     };
 }
