@@ -30,6 +30,7 @@
                 modules = system.modules ++ [
                   ./hardware-configuration.nix
                   {
+                    nixpkgs.config.allowUnfree = true;
                     nix.settings.experimental-features = [
                       "nix-command"
                       "flakes"
