@@ -25,9 +25,9 @@
 
         flake =
           let
-            prepareNixosSystem = modules:
+            prepareNixosSystem = system:
               inputs.nixpkgs.lib.nixosSystem {
-                modules = modules ++ [
+                modules = system.modules ++ [
                   ./hardware-configuration.nix
                   {
                     nix.settings.experimental-features = [
@@ -38,7 +38,7 @@
                 ];
               };
 
-            tobias-pc = prepareNixosSystem inputs.tobias-pc.modules;
+            tobias-pc = prepareNixosSystem inputs.tobias-pc;
           in
           {
             nixosConfigurations.tobias-pc = tobias-pc;

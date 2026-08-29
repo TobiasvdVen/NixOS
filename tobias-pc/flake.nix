@@ -50,5 +50,6 @@
     in
     {
       inherit modules;
+      networking.hostname = "tobias-pc";
     };
 }

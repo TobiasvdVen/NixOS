@@ -11,7 +11,6 @@
   networking.networkmanager.enable = true;
   networking.firewall.checkReversePath = false;
 
-
   security.rtkit.enable = true;
 
   services = {
