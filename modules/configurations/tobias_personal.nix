@@ -1,8 +1,18 @@
 { pkgs, ... }:
 {
   imports = [
+    # move to common
     ./../features/locale.nix
     ./../features/audio.nix
+    ./../features/firefox.nix
+    ./../features/kde.nix
+
+    # can probably disable?
+    ./../features/xserver.nix
+
+    # tobias
+    ./../features/disable_sleep.nix
+    ./../features/ollama.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -12,39 +22,6 @@
   networking.firewall.checkReversePath = false;
 
   security.rtkit.enable = true;
-
-  services = {
-    # Enable the X11 windowing system.
-    # You can disable this if you're only using the Wayland session.
-    xserver = {
-      enable = true;
-
-      # Configure keymap in X11
-      xkb = {
-        layout = "us";
-        variant = "";
-      };
-
-      videoDrivers = [ "amdgpu" ];
-    };
-
-    # Enable the KDE Plasma Desktop Environment.
-    displayManager.sddm.enable = true;
-    desktopManager.plasma6.enable = true;
-
-    ollama = {
-      enable = true;
-      package = pkgs.ollama-rocm;
-      loadModels = [ "qwen3:14b" ];
-    };
-  };
-
-  hardware = {
-    bluetooth = {
-      enable = true;
-      settings.General.Experimental = false;
-    };
-  };
 
   users.users.tobias = {
     isNormalUser = true;
@@ -58,7 +35,6 @@
     ];
   };
 
-  programs.firefox.enable = true;
   programs.steam = {
     enable = true;
   };
@@ -75,17 +51,11 @@
     mangohud
     protonup-ng
     nixd
-    protonvpn-gui
     wireguard-tools
     obsidian
     keymapp
     wezterm
   ];
-
-  systemd.targets.sleep.enable = false;
-  systemd.targets.suspend.enable = false;
-  systemd.targets.hibernate.enable = false;
-  systemd.targets.hybrid-sleep.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

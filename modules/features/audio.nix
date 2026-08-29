@@ -86,6 +86,12 @@
     };
 
     blueman.enable = false;
+  };
 
+  hardware = {
+    bluetooth = {
+      enable = true;
+      settings.General.Experimental = false;
+    };
   };
 }
