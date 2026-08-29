@@ -43,7 +43,7 @@
       };
 
       modules = [
-        ./../modules/hosts/tobias_pc.nix
+        ./../modules/configurations/tobias_personal.nix
         home-manager.nixosModules.home-manager
         home_tobias
       ];
