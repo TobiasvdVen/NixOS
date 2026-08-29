@@ -23,15 +23,26 @@
 
         ];
 
-        flake = {
-            nixosConfigurations = {
-              tobias-pc = inputs.nixpkgs.lib.nixosSystem {
-                modules = inputs.tobias-pc.modules ++ [
+        flake =
+          let
+            prepareNixosSystem = modules:
+              inputs.nixpkgs.lib.nixosSystem {
+                modules = modules ++ [
                   ./hardware-configuration.nix
+                  {
+                    nix.settings.experimental-features = [
+                      "nix-command"
+                      "flakes"
+                    ];
+                  }
                 ];
               };
-            };
-        };
+
+            tobias-pc = prepareNixosSystem inputs.tobias-pc.modules;
+          in
+          {
+            nixosConfigurations.tobias-pc = tobias-pc;
+          };
 
         systems = [
           "x86_64-linux"
