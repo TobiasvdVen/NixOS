@@ -42,7 +42,9 @@
       };
 
       modules = [
-        ./../../modules/configurations/tobias_personal.nix
+        (import ./../../modules/configurations/tobias_personal.nix {
+          videoDrivers  = [ "amdgpu" ];
+        })
         home-manager.nixosModules.home-manager
         home_tobias
       ];

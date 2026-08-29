@@ -1,3 +1,4 @@
+{ videoDrivers }:
 { ... }:
 {
   services = {
@@ -12,7 +13,7 @@
         variant = "";
       };
 
-      videoDrivers = [ "amdgpu" ];
+      inherit videoDrivers;
     };
   };
 }

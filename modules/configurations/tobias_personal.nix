@@ -1,3 +1,4 @@
+{ videoDrivers }:
 { pkgs, ... }:
 {
   imports = [
@@ -8,7 +9,9 @@
     ./../features/kde.nix
 
     # can probably disable?
-    ./../features/xserver.nix
+    (import ./../features/xserver.nix {
+      inherit videoDrivers;
+    })
 
     # tobias
     ./../features/disable_sleep.nix
