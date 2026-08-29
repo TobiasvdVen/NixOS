@@ -7,6 +7,7 @@
     ./../features/audio.nix
     ./../features/firefox.nix
     ./../features/kde.nix
+    ./../features/steam.nix
 
     # can probably disable?
     (import ./../features/xserver.nix {
@@ -34,12 +35,6 @@
       "wheel"
     ];
   };
-
-  programs.steam = {
-    enable = true;
-  };
-  programs.gamemode.enable = true;
-  #programs.steam.gamescopeSession.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
