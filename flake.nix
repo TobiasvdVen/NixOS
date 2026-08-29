@@ -6,6 +6,10 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixos-tools-path.url = "path:./nixos_tools";
     nil-git.url = "github:oxalica/nil";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     tobias-pc.url = "path:./hosts/tobias-pc";
   };
 
@@ -25,10 +29,14 @@
 
         flake =
           let
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
             prepareNixosSystem = system:
               inputs.nixpkgs.lib.nixosSystem {
                 modules = system.modules ++ [
                   ./hardware-configuration.nix
+                  inputs.home-manager.nixosModules.home-manager
                   {
                     nixpkgs.config.allowUnfree = true;
                     nix.settings.experimental-features = [

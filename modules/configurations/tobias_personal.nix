@@ -1,4 +1,4 @@
-{ videoDrivers }:
+{ videoDrivers, passivate, gitfourchette }:
 { pkgs, ... }:
 {
   imports = [
@@ -15,9 +15,14 @@
     })
 
     # tobias
+    ./../users/tobias_user.nix
     ./../features/disable_sleep.nix
     ./../features/ollama.nix
   ];
+
+  home-manager.users.tobias = import ./../home/tobias_home.nix {
+    inherit passivate gitfourchette;
+  };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -26,15 +31,6 @@
   networking.firewall.checkReversePath = false;
 
   security.rtkit.enable = true;
-
-  users.users.tobias = {
-    isNormalUser = true;
-    description = "Tobias";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-  };
 
   environment.systemPackages = with pkgs; [
     pavucontrol

@@ -175,6 +175,27 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787377438,
+        "narHash": "sha256-Sxu1NLTD/Ern6hFGLlZmtKCSct3YQXZI/lls8RE1XeM=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "65258d5c65a250189fde2e35f490d15e064c4c62",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "release-26.05",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "home-manager_2": {
+      "inputs": {
+        "nixpkgs": [
           "tobias-pc",
           "nixpkgs"
         ]
@@ -466,6 +487,7 @@
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
+        "home-manager": "home-manager",
         "nil-git": "nil-git",
         "nixos-tools-path": "nixos-tools-path",
         "nixpkgs": "nixpkgs_6",
@@ -589,7 +611,7 @@
     "tobias-pc": {
       "inputs": {
         "gitfourchette-git": "gitfourchette-git",
-        "home-manager": "home-manager",
+        "home-manager": "home-manager_2",
         "nil-git": "nil-git_2",
         "nixpkgs": "nixpkgs_9",
         "passivate-git": "passivate-git"
