@@ -24,7 +24,13 @@
         ];
 
         flake = {
-          nixosConfigurations.tobias-pc = inputs.tobias-pc;
+            nixosConfigurations = {
+              tobias-pc = inputs.nixpkgs.lib.nixosSystem {
+                modules = inputs.tobias-pc.bla ++ [
+                  ./hardware-configuration.nix
+                ];
+              };
+            };
         };
 
         systems = [

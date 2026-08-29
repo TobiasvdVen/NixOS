@@ -45,13 +45,14 @@
 
         home-manager.users.tobias = import ./home_tobias.nix;
       };
+
+        bla = [
+                "${modules}/hosts/tobias_pc.nix"
+                home-manager.nixosModules.home-manager
+                home_tobias
+              ];
     in
-    nixpkgs.lib.nixosSystem {
-      modules = [
-        "${modules}/system/core.nix"
-        "${modules}/hosts/tobias_pc.nix"
-        home-manager.nixosModules.home-manager
-        home_tobias
-      ];
+    {
+      inherit bla;
     };
 }

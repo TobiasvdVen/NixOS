@@ -1,5 +1,5 @@
 set -e
 
-rm -f ./modules/system/hardware-configuration.nix
-cp /etc/nixos/hardware-configuration.nix ./modules/system
+rm -f ./hardware-configuration.nix
+cp /etc/nixos/hardware-configuration.nix ./
 nixos-rebuild --flake path:.#tobias-pc dry-activate

@@ -1,3 +1,4 @@
 secrets
 /nixos_tools/target
 .passivate
+/hardware-configuration.nix

@@ -16,7 +16,6 @@
   networking.networkmanager.enable = true;
   networking.firewall.checkReversePath = false;
 
-  time.timeZone = "Europe/Amsterdam";
 
   security.rtkit.enable = true;
 
