@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-    nil-git.url = "github:oxalica/nil";
   };
 
   outputs =
@@ -15,9 +14,6 @@
     }:
 
     let
-      system = "x86_64-linux";
-      nil = nil-git.packages.${system}.default;
-
       homelab = import ./../../modules/configurations/homelab.nix;
 
       stateVersion = {

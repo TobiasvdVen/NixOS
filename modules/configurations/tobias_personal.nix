@@ -1,4 +1,8 @@
-{ videoDrivers, passivate, gitfourchette }:
+{
+  videoDrivers,
+  passivate,
+  gitfourchette,
+}:
 { pkgs, ... }:
 {
   imports = [
@@ -8,6 +12,7 @@
     ./../features/firefox.nix
     ./../features/kde.nix
     ./../features/steam.nix
+    ./../features/bootloader.nix
 
     # can probably disable?
     (import ./../features/xserver.nix {
@@ -23,9 +28,6 @@
   home-manager.users.tobias = import ./../home/tobias_home.nix {
     inherit passivate gitfourchette;
   };
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
 
   networking.networkmanager.enable = true;
   networking.firewall.checkReversePath = false;
