@@ -8,7 +8,7 @@
     nil-git.url = "github:oxalica/nil";
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
-      #   inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     tobias-pc.url = "path:./hosts/tobias-pc";
     homelab.url = "path:./hosts/homelab";
