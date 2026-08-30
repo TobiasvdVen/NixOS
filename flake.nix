@@ -8,9 +8,10 @@
     nil-git.url = "github:oxalica/nil";
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs";
+      #   inputs.nixpkgs.follows = "nixpkgs";
     };
     tobias-pc.url = "path:./hosts/tobias-pc";
+    homelab.url = "path:./hosts/homelab";
   };
 
   outputs =
@@ -28,6 +29,7 @@
         ];
 
         flake =
+          { inputs, ... }:
           let
             inputs.home-manager.useGlobalPkgs = true;
             inputs.home-manager.useUserPackages = true;
@@ -47,11 +49,10 @@
                   }
                 ];
               };
-
-            tobias-pc = prepareNixosSystem inputs.tobias-pc;
           in
           {
-            nixosConfigurations.tobias-pc = tobias-pc;
+            nixosConfigurations.tobias-pc = prepareNixosSystem inputs.tobias-pc;
+            nixosConfigurations.homelab = prepareNixosSystem inputs.homelab;
           };
 
         systems = [
