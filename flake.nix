@@ -29,11 +29,7 @@
         ];
 
         flake =
-          { inputs, ... }:
           let
-            inputs.home-manager.useGlobalPkgs = true;
-            inputs.home-manager.useUserPackages = true;
-
             prepareNixosSystem =
               system:
               inputs.nixpkgs.lib.nixosSystem {
@@ -41,7 +37,11 @@
                   ./hardware-configuration.nix
                   inputs.home-manager.nixosModules.home-manager
                   {
-                    inputs.nixpkgs.config.allowUnfree = true;
+                    home-manager.useGlobalPkgs = true;
+                    home-manager.useUserPackages = true;
+                  }
+                  {
+                    nixpkgs.config.allowUnfree = true;
                     nix.settings.experimental-features = [
                       "nix-command"
                       "flakes"
