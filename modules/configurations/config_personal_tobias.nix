@@ -13,6 +13,7 @@
       inherit videoDrivers;
     })
 
+    ./../features/kde.nix
     ./../features/disable_sleep.nix
     ./../features/ollama.nix
   ];
