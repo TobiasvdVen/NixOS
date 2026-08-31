@@ -15,6 +15,7 @@
     pkgs.obsidian
     pkgs.keymapp
     pkgs.wezterm
+    pkgs.qalculate
 
     # Linux-compatible way to launch battle.net
     pkgs.faugus-launcher
