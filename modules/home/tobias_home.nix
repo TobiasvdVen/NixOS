@@ -1,9 +1,7 @@
 { passivate, gitfourchette }:
 { pkgs, ... }:
 {
-  imports = [
-    ./common_home.nix
-  ];
+  home.stateVersion = "25.11";
 
   home.username = "tobias";
   home.homeDirectory = "/home/tobias";
