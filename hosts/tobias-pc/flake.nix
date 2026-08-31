@@ -5,7 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     passivate-git.url = "git+https://github.com/TobiasvdVenOrg/Passivate?ref=main&submodules=1";
     gitfourchette-git.url = "github:TobiasvdVen/gitfourchette-nix?ref=main";
-    nil-git.url = "github:oxalica/nil";
   };
 
   outputs =
@@ -14,7 +13,6 @@
       home-manager,
       passivate-git,
       gitfourchette-git,
-      nil-git,
       ...
     }:
 
@@ -22,7 +20,6 @@
       system = "x86_64-linux";
       passivate = passivate-git.packages.${system}.default;
       gitfourchette = gitfourchette-git.packages.${system}.default;
-      nil = nil-git.packages.${system}.default;
 
       config-tobias_personal = import ./../../modules/configurations/config_personal_tobias.nix {
         videoDrivers = [ "amdgpu" ];
