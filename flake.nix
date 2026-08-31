@@ -1,74 +1,83 @@
 {
-  description = "Root NixOS flake, which can compose the following distinct configurations: 'personal', ...";
+  description = "Development flake for NixOS configuration work, includes a dev shell that installs a nix lsp (nil) and custom NixOS tools (nt)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-    passivate-git = {
-      url = "git+https://github.com/TobiasvdVenOrg/Passivate?ref=main&submodules=1";
-    };
-    gitfourchette-git = {
-      url = "github:TobiasvdVen/gitfourchette-nix?ref=main";
-    };
-    home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
-
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    flake-parts.url = "github:hercules-ci/flake-parts";
     nixos-tools-path.url = "path:./nixos_tools";
     nil-git.url = "github:oxalica/nil";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    tobias-pc.url = "path:./hosts/tobias-pc";
+    monique-pc.url = "path:./hosts/monique-pc";
+    homelab.url = "path:./hosts/homelab";
   };
 
   outputs =
-    {
-      nixpkgs,
-      home-manager,
-      passivate-git,
-      gitfourchette-git,
-      nixos-tools-path,
-      nil-git,
-      ...
-    }:
-    let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
-      passivate = passivate-git.packages.${system}.default;
-      gitfourchette = gitfourchette-git.packages.${system}.default;
-      nixos-tools = nixos-tools-path.packages.${system}.default;
-      nil = nil-git.packages.${system}.default;
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
+      top@{
+        config,
+        withSystem,
+        moduleWithSystem,
+        ...
+      }:
+      {
+        imports = [
 
-      home_tobias = {
-        home-manager.extraSpecialArgs = {
-          inherit passivate;
-          inherit gitfourchette;
-        };
-
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-
-        home-manager.users.tobias = import ./personal/home_tobias.nix;
-      };
-    in
-    {
-      nixosConfigurations.personal = nixpkgs.lib.nixosSystem {
-        modules = [
-          ./personal.nix
-          home-manager.nixosModules.home-manager
-          home_tobias
         ];
-      };
 
-      nixosConfigurations.homelab = nixpkgs.lib.nixosSystem {
-        modules = [
-          ./homelab.nix
-        ];
-      };
+        flake =
+          let
+            prepareNixosSystem =
+              system:
+              inputs.nixpkgs.lib.nixosSystem {
+                modules = system.modules ++ [
+                  ./hardware-configuration.nix
+                  inputs.home-manager.nixosModules.home-manager
+                  {
+                    home-manager.useGlobalPkgs = true;
+                    home-manager.useUserPackages = true;
+                  }
+                  {
+                    nixpkgs.config.allowUnfree = true;
+                    nix.settings.experimental-features = [
+                      "nix-command"
+                      "flakes"
+                    ];
+                  }
+                ];
+              };
+          in
+          {
+            nixosConfigurations.tobias-pc = prepareNixosSystem inputs.tobias-pc;
+            nixosConfigurations.monique-pc = prepareNixosSystem inputs.monique-pc;
+            nixosConfigurations.homelab = prepareNixosSystem inputs.homelab;
+          };
 
-      devShells."${system}".default = pkgs.mkShell {
-        buildInputs = [
-          pkgs.package-version-server
-          nixos-tools
-          nil
+        systems = [
+          "x86_64-linux"
         ];
-      };
-    };
+
+        perSystem =
+          {
+            config,
+            pkgs,
+            inputs',
+            ...
+          }:
+          {
+            devShells.default = pkgs.mkShell {
+              buildInputs = [
+                pkgs.package-version-server
+                inputs'.nixos-tools-path.packages.nt
+                inputs'.nixos-tools-path.packages.nixos_tools
+                inputs'.nil-git.packages.nil
+              ];
+            };
+          };
+      }
+    );
 }

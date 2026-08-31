@@ -1,6 +1,21 @@
-[package]
-name = "nixos_tools"
-version = "0.1.0"
-edition = "2024"
+[workspace]
+members = [
+    "app",
+    "cli",
+    "core"
+]
 
-[dependencies]
+resolver = "2"
+
+[profile.release]
+panic = "abort"
+
+[workspace.dependencies]
+
+[workspace.lints.rust]
+unused_results = "warn"
+
+[workspace.lints.clippy]
+must_use_candidate = "allow"
+unwrap_used = "warn"
+expect_used = "warn"
