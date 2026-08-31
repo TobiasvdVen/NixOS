@@ -20,10 +20,19 @@
     })
 
     # tobias
-    ./../users/tobias_user.nix
     ./../features/disable_sleep.nix
     ./../features/ollama.nix
   ];
+
+  users.users = {
+    tobias = {
+      isNormalUser = true;
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+      ];
+    };
+  };
 
   home-manager.users.tobias = import ./../home/tobias_home.nix {
     inherit passivate gitfourchette;
