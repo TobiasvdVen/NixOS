@@ -21,7 +21,7 @@
       passivate = passivate-git.packages.${system}.default;
       gitfourchette = gitfourchette-git.packages.${system}.default;
 
-      config-tobias_personal = import ./../../modules/configurations/config_personal_tobias.nix {
+      config-tobias-personal = import ./../../modules/configurations/config_personal_tobias.nix {
         videoDrivers = [ "amdgpu" ];
         inherit passivate gitfourchette;
       };
@@ -37,7 +37,7 @@
       };
 
       modules = [
-        config-tobias_personal
+        config-tobias-personal
         stateVersion
       ];
     in
