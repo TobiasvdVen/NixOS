@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./core_system.nix
@@ -11,4 +11,8 @@
   programs.gamemode.enable = true;
 
   programs.firefox.enable = true;
+
+  environment.systemPackages = [
+    pkgs.proton-vpn
+  ];
 }
