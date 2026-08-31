@@ -1,13 +1,10 @@
 { config, pkgs, ... }:
 {
   imports = [
-    # move to common
-    ./../features/locale.nix
+    ./../cores/core_system.nix
     ./../features/disable_sleep.nix
-    ./../features/bootloader.nix
   ];
 
-  networking.networkmanager.enable = true;
   networking.firewall = {
     allowedTCPPorts = [
       443
