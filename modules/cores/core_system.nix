@@ -1,5 +1,13 @@
 { ... }:
 {
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  networking.networkmanager.enable = true;
+  networking.firewall.checkReversePath = false;
+
+  security.rtkit.enable = true;
+
   time.timeZone = "Europe/Amsterdam";
 
   i18n.defaultLocale = "en_US.UTF-8";

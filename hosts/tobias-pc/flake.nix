@@ -24,8 +24,8 @@
       gitfourchette = gitfourchette-git.packages.${system}.default;
       nil = nil-git.packages.${system}.default;
 
-      tobias-personal = import ./../../modules/configurations/tobias_personal.nix {
-        videoDrivers  = [ "amdgpu" ];
+      config-tobias_personal = import ./../../modules/configurations/config_personal_tobias.nix {
+        videoDrivers = [ "amdgpu" ];
         inherit passivate gitfourchette;
       };
 
@@ -40,7 +40,7 @@
       };
 
       modules = [
-        tobias-personal
+        config-tobias_personal
         stateVersion
       ];
     in
