@@ -11,6 +11,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     tobias-pc.url = "path:./hosts/tobias-pc";
+    monique-pc.url = "path:./hosts/monique-pc";
     homelab.url = "path:./hosts/homelab";
   };
 
@@ -52,6 +53,7 @@
           in
           {
             nixosConfigurations.tobias-pc = prepareNixosSystem inputs.tobias-pc;
+            nixosConfigurations.monique-pc = prepareNixosSystem inputs.monique-pc;
             nixosConfigurations.homelab = prepareNixosSystem inputs.homelab;
           };
 

@@ -1,3 +1,4 @@
+{ nixos_tools }:
 { pkgs, ... }:
 {
   imports = [
@@ -14,5 +15,10 @@
 
   environment.systemPackages = [
     pkgs.proton-vpn
+
+    # For managing specific Proton versions for gaming with Steam
+    pkgs.protonup-ng
+
+    nixos_tools
   ];
 }

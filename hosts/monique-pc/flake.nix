@@ -1,9 +1,8 @@
 {
-  description = "NixOS system configuration for tobias-pc";
+  description = "NixOS system configuration for monique-pc";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-    passivate-git.url = "git+https://github.com/TobiasvdVenOrg/Passivate?ref=main&submodules=1";
     gitfourchette-git.url = "github:TobiasvdVen/gitfourchette-nix?ref=main";
     nixos_tools-path.url = "path:./../../nixos_tools";
   };
@@ -12,7 +11,6 @@
     {
       nixpkgs,
       home-manager,
-      passivate-git,
       gitfourchette-git,
       nixos_tools-path,
       ...
@@ -20,13 +18,19 @@
 
     let
       system = "x86_64-linux";
-      passivate = passivate-git.packages.${system}.default;
       gitfourchette = gitfourchette-git.packages.${system}.default;
       nixos_tools = nixos_tools-path.packages.${system}.nixos_tools;
 
-      config-tobias-personal = import ./../../modules/configurations/config_personal_tobias.nix {
-        videoDrivers = [ "amdgpu" ];
-        inherit passivate gitfourchette nixos_tools;
+      config-personal-monique = import ./../../modules/configurations/config_personal_monique.nix {
+        videoDrivers = [ "nvidia" ];
+        inherit gitfourchette nixos_tools;
+      };
+
+      nvidia = {
+        hardware = {
+          graphics.enable = true;
+          nvidia.open = true;
+        };
       };
 
       stateVersion = {
@@ -36,11 +40,12 @@
         # this value at the release version of the first install of this system.
         # Before changing this value read the documentation for this option
         # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-        system.stateVersion = "25.11"; # Did you read the comment?
+        system.stateVersion = "26.05"; # Did you read the comment?
       };
 
       modules = [
-        config-tobias-personal
+        config-personal-monique
+        nvidia
         stateVersion
       ];
     in

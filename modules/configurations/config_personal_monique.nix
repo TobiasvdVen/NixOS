@@ -1,6 +1,5 @@
 {
   videoDrivers,
-  passivate,
   gitfourchette,
   nixos_tools,
 }:
@@ -17,23 +16,18 @@
     })
 
     ./../features/kde.nix
-    ./../features/disable_sleep.nix
-    ./../features/ollama.nix
   ];
 
   users.users = {
-    tobias = {
+    monique = {
       isNormalUser = true;
       extraGroups = [
-        "networkmanager"
         "wheel"
       ];
     };
   };
 
-  home-manager.users = {
-    tobias = import ./../home/home_tobias.nix {
-      inherit passivate gitfourchette;
-    };
+  home-manager.users.monique = import ./../home/home_monique.nix {
+    inherit gitfourchette;
   };
 }
