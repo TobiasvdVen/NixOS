@@ -2,6 +2,7 @@
   videoDrivers,
   passivate,
   gitfourchette,
+  nvf,
   nixos_tools,
 }:
 { pkgs, ... }:
@@ -33,7 +34,7 @@
 
   home-manager.users = {
     tobias = import ./../home/home_tobias.nix {
-      inherit passivate gitfourchette;
+      inherit passivate gitfourchette nvf;
     };
   };
 }

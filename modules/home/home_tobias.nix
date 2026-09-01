@@ -1,5 +1,16 @@
-{ passivate, gitfourchette }:
+{
+  passivate,
+  gitfourchette,
+  nvf,
+}:
 { pkgs, ... }:
+let
+  neovim = (
+    import ./../features/neovim.nix {
+      inherit pkgs nvf;
+    }
+  );
+in
 {
   home.stateVersion = "25.11";
 
@@ -24,5 +35,6 @@
 
     passivate
     gitfourchette
+    neovim
   ];
 }

@@ -5,6 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     passivate-git.url = "git+https://github.com/TobiasvdVenOrg/Passivate?ref=main&submodules=1";
     gitfourchette-git.url = "github:TobiasvdVen/gitfourchette-nix?ref=main";
+    nvf.url = "github:notashelf/nvf";
     nixos_tools-path.url = "path:./../../nixos_tools";
   };
 
@@ -14,6 +15,7 @@
       home-manager,
       passivate-git,
       gitfourchette-git,
+      nvf,
       nixos_tools-path,
       ...
     }:
@@ -26,7 +28,12 @@
 
       config-tobias-personal = import ./../../modules/configurations/config_personal_tobias.nix {
         videoDrivers = [ "amdgpu" ];
-        inherit passivate gitfourchette nixos_tools;
+        inherit
+          passivate
+          gitfourchette
+          nvf
+          nixos_tools
+          ;
       };
 
       stateVersion = {
