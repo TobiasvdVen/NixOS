@@ -26,5 +26,6 @@
 
   environment.systemPackages = [
     pkgs.htop
+    pkgs.git
   ];
 }

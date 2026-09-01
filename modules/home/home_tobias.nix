@@ -5,8 +5,10 @@
 
   home.username = "tobias";
   home.homeDirectory = "/home/tobias";
-
-  programs.firefox.enable = true;
+  programs.firefox = {
+    enable = true;
+    configPath = ".mozilla/firefox";
+  };
 
   home.packages = [
     pkgs.zed-editor
@@ -15,7 +17,7 @@
     pkgs.obsidian
     pkgs.keymapp
     pkgs.wezterm
-    pkgs.qalculate
+    pkgs.qalculate-qt
 
     # Linux-compatible way to launch battle.net
     pkgs.faugus-launcher
