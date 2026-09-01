@@ -1,16 +1,43 @@
-{ pkgs, nvf }:
-let
+{
+  pkgs,
+  nvf,
+}: let
   neovim-config = nvf.lib.neovimConfiguration {
     inherit pkgs;
     modules = [
       (
-        { pkgs, ... }:
-        {
+        {pkgs, ...}: {
           config.vim = {
+            globals.mapleader = " ";
+
+            keymaps = [
+              {
+                key = "<leader>e";
+                mode = "n";
+                action = "<cmd>lua MiniFiles.open()<cr>";
+                desc = "Files...";
+              }
+              {
+                key = "<leader>s";
+                mode = "n";
+                action = ":update<cr>";
+                desc = "Save file";
+              }
+            ];
+
             lsp = {
               enable = true;
 
               formatOnSave = true;
+            };
+
+            binds = {
+              whichKey = {
+                enable = true;
+                setupOpts = {
+                  notify = true;
+                };
+              };
             };
 
             languages = {
@@ -33,8 +60,14 @@ let
               blink-cmp.enable = true;
             };
 
-            mini = {
-              files.enable = true;
+            telescope.enable = true;
+            mini.files = {
+              enable = true;
+              setupOpts = {
+                mappings = {
+                  close = "<Esc>";
+                };
+              };
             };
           };
         }
@@ -42,4 +75,4 @@ let
     ];
   };
 in
-neovim-config.neovim
+  neovim-config.neovim
