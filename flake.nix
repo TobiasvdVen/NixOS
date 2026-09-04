@@ -4,80 +4,30 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    nixos-tools-path.url = "path:./nixos_tools";
-    nil-git.url = "github:oxalica/nil";
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    tobias-pc.url = "path:./hosts/tobias-pc";
-    monique-pc.url = "path:./hosts/monique-pc";
-    homelab.url = "path:./hosts/homelab";
+    wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
+
+    nvf.url = "github:notashelf/nvf";
+    nixos-tools-path.url = "path:./nixos_tools";
+    nil-git.url = "github:oxalica/nil";
+
+    passivate-git.url = "git+https://github.com/TobiasvdVenOrg/Passivate?ref=main&submodules=1";
+    gitfourchette-git.url = "github:TobiasvdVen/gitfourchette-nix?ref=main";
   };
 
-  outputs =
-    inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
-      top@{
-        config,
-        withSystem,
-        moduleWithSystem,
-        ...
-      }:
-      {
-        imports = [
+  outputs = inputs: let
+    inherit (inputs.nixpkgs) lib;
+    inherit (lib.fileset) toList fileFilter;
 
-        ];
+    isNixModule = file:
+      file.hasExt "nix" && file.name != "flake.nix";
 
-        flake =
-          let
-            prepareNixosSystem =
-              system:
-              inputs.nixpkgs.lib.nixosSystem {
-                modules = system.modules ++ [
-                  ./hardware-configuration.nix
-                  inputs.home-manager.nixosModules.home-manager
-                  {
-                    home-manager.useGlobalPkgs = true;
-                    home-manager.useUserPackages = true;
-                  }
-                  {
-                    nixpkgs.config.allowUnfree = true;
-                    nix.settings.experimental-features = [
-                      "nix-command"
-                      "flakes"
-                    ];
-                  }
-                ];
-              };
-          in
-          {
-            nixosConfigurations.tobias-pc = prepareNixosSystem inputs.tobias-pc;
-            nixosConfigurations.monique-pc = prepareNixosSystem inputs.monique-pc;
-            nixosConfigurations.homelab = prepareNixosSystem inputs.homelab;
-          };
+    importTree = path: toList (fileFilter isNixModule path);
 
-        systems = [
-          "x86_64-linux"
-        ];
-
-        perSystem =
-          {
-            config,
-            pkgs,
-            inputs',
-            ...
-          }:
-          {
-            devShells.default = pkgs.mkShell {
-              buildInputs = [
-                pkgs.package-version-server
-                inputs'.nixos-tools-path.packages.nt
-                inputs'.nixos-tools-path.packages.nixos_tools
-                inputs'.nil-git.packages.nil
-              ];
-            };
-          };
-      }
-    );
+    mkFlake = inputs.flake-parts.lib.mkFlake {inherit inputs;};
+  in
+    mkFlake {imports = importTree ./.;};
 }

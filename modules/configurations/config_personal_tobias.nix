@@ -1,40 +1,25 @@
-{
-  videoDrivers,
-  passivate,
-  gitfourchette,
-  nvf,
-  nixos_tools,
-}:
-{ pkgs, ... }:
-{
-  imports = [
-    (import ./../cores/core_personal.nix {
-      inherit nixos_tools;
-    })
+{self, ...}: {
+  flake.nixosModules.configurations.config-personal-tobias = {...}: {
+    imports = [
+      self.nixosModules.cores.core_personal
 
-    # can probably disable?
-    (import ./../features/xserver.nix {
-      inherit videoDrivers;
-    })
+      # can probably disable?
+      self.nixosModules.features.xserver
+      self.nixosModules.features.kde
+      self.nixosModules.features.disable-sleep
+      self.nixosModules.features.ollama
+    ];
 
-    ./../features/kde.nix
-    ./../features/disable_sleep.nix
-    ./../features/ollama.nix
-  ];
-
-  users.users = {
-    tobias = {
-      isNormalUser = true;
-      extraGroups = [
-        "networkmanager"
-        "wheel"
-      ];
+    users.users = {
+      tobias = {
+        isNormalUser = true;
+        extraGroups = [
+          "networkmanager"
+          "wheel"
+        ];
+      };
     };
-  };
 
-  home-manager.users = {
-    tobias = import ./../home/home_tobias.nix {
-      inherit passivate gitfourchette nvf;
-    };
+    home-manager.users.tobias = self.homeModules.home-tobias;
   };
 }

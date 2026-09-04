@@ -1,33 +1,22 @@
-{
-  videoDrivers,
-  gitfourchette,
-  nixos_tools,
-}:
-{ pkgs, ... }:
-{
-  imports = [
-    (import ./../cores/core_personal.nix {
-      inherit nixos_tools;
-    })
+{self, ...}: {
+  flake.nixosModules.configurations.config-personal-monique = {...}: {
+    imports = [
+      self.nixosModules.cores.core-personal
 
-    # can probably disable?
-    (import ./../features/xserver.nix {
-      inherit videoDrivers;
-    })
+      # can probably disable?
+      self.nixosModules.features.xserver
+      self.nixosModules.features.kde
+    ];
 
-    ./../features/kde.nix
-  ];
-
-  users.users = {
-    monique = {
-      isNormalUser = true;
-      extraGroups = [
-        "wheel"
-      ];
+    users.users = {
+      monique = {
+        isNormalUser = true;
+        extraGroups = [
+          "wheel"
+        ];
+      };
     };
-  };
 
-  home-manager.users.monique = import ./../home/home_monique.nix {
-    inherit gitfourchette;
+    home-manager.users.monique = self.homeModules.home-monique;
   };
 }
