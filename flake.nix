@@ -13,10 +13,10 @@
 
     nvf.url = "github:notashelf/nvf";
     nixos-tools-path.url = "path:./nixos_tools";
-    nil-git.url = "github:oxalica/nil";
+    nil.url = "github:oxalica/nil";
 
-    passivate-git.url = "git+https://github.com/TobiasvdVenOrg/Passivate?ref=main&submodules=1";
-    gitfourchette-git.url = "github:TobiasvdVen/gitfourchette-nix?ref=main";
+    passivate.url = "git+https://github.com/TobiasvdVenOrg/Passivate?ref=main&submodules=1";
+    gitfourchette.url = "github:TobiasvdVen/gitfourchette-nix?ref=main";
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);

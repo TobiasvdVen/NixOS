@@ -151,10 +151,10 @@
         "type": "github"
       }
     },
-    "gitfourchette-git": {
+    "gitfourchette": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "gitfourchette-git": "gitfourchette-git_2",
+        "gitfourchette-git": "gitfourchette-git",
         "nixpkgs": "nixpkgs"
       },
       "locked": {
@@ -172,7 +172,7 @@
         "type": "github"
       }
     },
-    "gitfourchette-git_2": {
+    "gitfourchette-git": {
       "flake": false,
       "locked": {
         "lastModified": 1785605769,
@@ -239,7 +239,7 @@
         "type": "github"
       }
     },
-    "nil-git": {
+    "nil": {
       "inputs": {
         "nixpkgs": "nixpkgs_2"
       },
@@ -483,7 +483,7 @@
         "type": "github"
       }
     },
-    "passivate-git": {
+    "passivate": {
       "inputs": {
         "crane": "crane_3",
         "flake-utils": "flake-utils_4",
@@ -510,14 +510,14 @@
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
-        "gitfourchette-git": "gitfourchette-git",
+        "gitfourchette": "gitfourchette",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
-        "nil-git": "nil-git",
+        "nil": "nil",
         "nixos-tools-path": "nixos-tools-path",
         "nixpkgs": "nixpkgs_7",
         "nvf": "nvf",
-        "passivate-git": "passivate-git",
+        "passivate": "passivate",
         "wrapper-modules": "wrapper-modules"
       }
     },

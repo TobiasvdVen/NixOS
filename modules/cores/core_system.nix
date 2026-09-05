@@ -24,6 +24,8 @@
       LC_TIME = "nl_NL.UTF-8";
     };
 
+    nixpkgs.config.allowUnfree = true;
+
     environment.systemPackages = [
       pkgs.htop
       pkgs.git
