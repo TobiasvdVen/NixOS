@@ -4,9 +4,17 @@
     lib,
     ...
   }: {
-    options.xserver.videoDrivers = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
+    options.raspberry-path.xserver.videoDrivers = lib.mkOption {
+      type = lib.types.nullOr (lib.types.listOf lib.types.str);
+      default = null;
     };
+
+    config.assertions = [
+      {
+        assertion = config.raspberry-path.xserver.videoDrivers != null;
+        message = "nixosModules.xserver is evaluated, but 'xserver.videoDrivers' option is not set";
+      }
+    ];
 
     config.services = {
       # Enable the X11 windowing system.
@@ -20,7 +28,7 @@
           variant = "";
         };
 
-        videoDrivers = config.xserver.videoDrivers;
+        videoDrivers = lib.mkIf (config.raspberry-path.xserver.videoDrivers != null) config.raspberry-path.xserver.videoDrivers;
       };
     };
   };
