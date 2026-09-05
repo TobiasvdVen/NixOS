@@ -27,7 +27,7 @@
 
       inputs.passivate
       inputs.gitfourchette
-      self.nixosModules.neovim
+      self.packages.${pkgs.system}.neovim
     ];
   };
 }
