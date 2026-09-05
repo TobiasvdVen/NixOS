@@ -3,11 +3,7 @@
     imports = [
       (builtins.trace "core_personal:" self.nixosModules.core-personal)
 
-      # can probably disable?
       self.nixosModules.niri
-      #self.nixosModules.xserver
-      #self.nixosModules.kde
-      self.nixosModules.disable-sleep
       self.nixosModules.ollama
     ];
 
