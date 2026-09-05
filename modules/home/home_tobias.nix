@@ -25,8 +25,8 @@
       # Linux-compatible way to launch battle.net
       pkgs.faugus-launcher
 
-      inputs.passivate
-      inputs.gitfourchette
+      inputs.passivate.packages.${pkgs.system}.default
+      inputs.gitfourchette.packages.${pkgs.system}.default
       self.packages.${pkgs.system}.neovim
     ];
   };

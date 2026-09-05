@@ -257,7 +257,7 @@
         "type": "github"
       }
     },
-    "nixos-tools-path": {
+    "nixos-tools": {
       "inputs": {
         "crane": "crane",
         "flake-utils": "flake-utils_2",
@@ -514,7 +514,7 @@
         "home-manager": "home-manager",
         "import-tree": "import-tree",
         "nil": "nil",
-        "nixos-tools-path": "nixos-tools-path",
+        "nixos-tools": "nixos-tools",
         "nixpkgs": "nixpkgs_7",
         "nvf": "nvf",
         "passivate": "passivate",

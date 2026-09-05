@@ -12,7 +12,7 @@
     import-tree.url = "github:vic/import-tree";
 
     nvf.url = "github:notashelf/nvf";
-    nixos-tools-path.url = "path:./nixos_tools";
+    nixos-tools.url = "path:./nixos_tools";
     nil.url = "github:oxalica/nil";
 
     passivate.url = "git+https://github.com/TobiasvdVenOrg/Passivate?ref=main&submodules=1";

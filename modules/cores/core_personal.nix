@@ -23,7 +23,7 @@
       # For managing specific Proton versions for gaming with Steam
       pkgs.protonup-ng
 
-      inputs.nixos_tools
+      inputs.nixos-tools.packages.${pkgs.system}.nixos_tools
     ];
   };
 }

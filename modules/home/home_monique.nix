@@ -19,7 +19,7 @@
       pkgs.signal-desktop
       pkgs.obsidian
 
-      inputs.gitfourchette
+      inputs.gitfourchette.packages.${pkgs.system}.default
     ];
   };
 }
