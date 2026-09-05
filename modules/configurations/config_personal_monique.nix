@@ -1,7 +1,7 @@
 {self, ...}: {
-  flake.nixosModules.configurations.config-personal-monique = {...}: {
+  flake.nixosModules.config-personal-monique = {...}: {
     imports = [
-      self.nixosModules.cores.core-personal
+      (builtins.trace "core-personal:" self.nixosModules.cores.core-personal)
 
       # can probably disable?
       self.nixosModules.features.xserver
@@ -17,6 +17,6 @@
       };
     };
 
-    home-manager.users.monique = self.homeModules.home-monique;
+    home-manager.users.monique = self.homeModules.home.home-monique;
   };
 }

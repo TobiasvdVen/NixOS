@@ -1,16 +1,16 @@
 {self, ...}: {
-  flake.nixosModules.configurations.config-personal-tobias = {...}: {
+  flake.nixosModules.config-personal-tobias = {...}: {
     imports = [
-      self.nixosModules.cores.core_personal
+      (builtins.trace "core_personal:" self.nixosModules.core-personal)
 
       # can probably disable?
-      self.nixosModules.features.xserver
-      self.nixosModules.features.kde
-      self.nixosModules.features.disable-sleep
-      self.nixosModules.features.ollama
+      self.nixosModules.xserver
+      self.nixosModules.kde
+      self.nixosModules.disable-sleep
+      self.nixosModules.ollama
     ];
 
-    users.users = {
+    users.users = builtins.trace "users.tobias: " {
       tobias = {
         isNormalUser = true;
         extraGroups = [
@@ -20,6 +20,6 @@
       };
     };
 
-    home-manager.users.tobias = self.homeModules.home-tobias;
+    home-manager.users.tobias = builtins.trace "home tobias: " self.homeModules.home-tobias;
   };
 }

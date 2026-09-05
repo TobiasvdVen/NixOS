@@ -209,6 +209,21 @@
         "type": "github"
       }
     },
+    "import-tree": {
+      "locked": {
+        "lastModified": 1788467110,
+        "narHash": "sha256-ljEMTXP/rH0tOvDzc9gzwww6KcHRPRnEHzd9lK48V7s=",
+        "owner": "vic",
+        "repo": "import-tree",
+        "rev": "eb1b52eaecc57f7c136d07ae8a93e724dfecac46",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vic",
+        "repo": "import-tree",
+        "type": "github"
+      }
+    },
     "mnw": {
       "locked": {
         "lastModified": 1780772958,
@@ -497,6 +512,7 @@
         "flake-parts": "flake-parts",
         "gitfourchette-git": "gitfourchette-git",
         "home-manager": "home-manager",
+        "import-tree": "import-tree",
         "nil-git": "nil-git",
         "nixos-tools-path": "nixos-tools-path",
         "nixpkgs": "nixpkgs_7",

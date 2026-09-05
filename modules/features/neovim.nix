@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.features.neovim = {
+  flake.nixosModules.neovim = {
     self,
     inputs,
     pkgs,

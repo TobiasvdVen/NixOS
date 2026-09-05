@@ -5,26 +5,24 @@
 }: {
   flake.nixosConfigurations.tobias-pc = inputs.nixpkgs.lib.nixosSystem {
     modules = [
-      self.nixosModules.hosts.host-tobias-pc
-      self.nixosModules.features.home-manager
+      self.nixosModules.host-tobias-pc
+      ./../../hardware-configuration.nix
     ];
   };
 
-  flake.nixosModules.hosts.host-tobias-pc = {pkgs, ...}: {
+  flake.nixosModules.host-tobias-pc = {pkgs, ...}: {
     imports = [
-      self.nixosModules.configurations.config-personal-tobias
+      self.nixosModules.config-personal-tobias
     ];
 
-    networking.hostname = "tobias-pc";
+    networking.hostName = "tobias-pc";
 
-    stateVersion = {
-      # This value determines the NixOS release from which the default
-      # settings for stateful data, like file locations and database versions
-      # on your system were taken. It‘s perfectly fine and recommended to leave
-      # this value at the release version of the first install of this system.
-      # Before changing this value read the documentation for this option
-      # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-      system.stateVersion = "25.11"; # Did you read the comment?
-    };
+    # This value determines the NixOS release from which the default
+    # settings for stateful data, like file locations and database versions
+    # on your system were taken. It‘s perfectly fine and recommended to leave
+    # this value at the release version of the first install of this system.
+    # Before changing this value read the documentation for this option
+    # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+    system.stateVersion = "25.11"; # Did you read the comment?
   };
 }

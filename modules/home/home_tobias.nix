@@ -3,7 +3,7 @@
   inputs,
   ...
 }: {
-  flake.homeModules.home.home-tobias = {pkgs, ...}: {
+  flake.homeModules.home-tobias = {pkgs, ...}: {
     home.stateVersion = "25.11";
 
     home.username = "tobias";

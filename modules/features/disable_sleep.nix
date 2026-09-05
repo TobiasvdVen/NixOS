@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.features.disable-sleep = {...}: {
+  flake.nixosModules.disable-sleep = {...}: {
     systemd.targets.sleep.enable = false;
     systemd.targets.suspend.enable = false;
     systemd.targets.hibernate.enable = false;

@@ -3,11 +3,11 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.cores.core-personal = {pkgs, ...}: {
+  flake.nixosModules.core-personal = {pkgs, ...}: {
     imports = [
-      self.nixosModules.cores.core-system
-      self.nixosModules.cores.home-manager
-      self.nixosModules.features.audio
+      self.nixosModules.core-system
+      self.nixosModules.core-home-manager
+      self.nixosModules.audio
     ];
 
     programs.steam = {

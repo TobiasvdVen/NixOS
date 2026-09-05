@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.cores.core-system = {pkgs, ...}: {
+  flake.nixosModules.core-system = {pkgs, ...}: {
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
