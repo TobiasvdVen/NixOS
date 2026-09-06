@@ -3,6 +3,9 @@
     imports = [
       self.nixosModules.core-personal
 
+      # Ensure apps like keymapp have access to ZSA devices
+      self.nixosModules.zsa
+
       self.nixosModules.niri
       self.nixosModules.ollama
     ];
