@@ -3,12 +3,7 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.niri = {
-    pkgs,
-    lib,
-    config,
-    ...
-  }: {
+  flake.nixosModules.niri = {pkgs, ...}: {
     imports = [
       inputs.noctalia-greeter.nixosModules.default
     ];
@@ -17,16 +12,6 @@
       enable = true;
       package = self.packages.${pkgs.stdenv.hostPlatform.system}.niri;
     };
-
-    #services.greetd = {
-    #  enable = true;
-    #  settings = {
-    #    initial_session = {
-    #      command = "${config.programs.niri.package}/bin/niri-session";
-    #      user = "tobias";
-    #    };
-    #  };
-    #};
 
     programs.noctalia-greeter = {
       enable = true;
