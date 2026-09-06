@@ -1,13 +1,13 @@
 {self, ...}: {
   flake.nixosModules.config-personal-tobias = {...}: {
     imports = [
-      (builtins.trace "core_personal:" self.nixosModules.core-personal)
+      self.nixosModules.core-personal
 
       self.nixosModules.niri
       self.nixosModules.ollama
     ];
 
-    users.users = builtins.trace "users.tobias: " {
+    users.users = {
       tobias = {
         isNormalUser = true;
         extraGroups = [
@@ -17,6 +17,6 @@
       };
     };
 
-    home-manager.users.tobias = builtins.trace "home tobias: " self.homeModules.home-tobias;
+    home-manager.users.tobias = self.homeModules.home-tobias;
   };
 }
