@@ -6,11 +6,41 @@
   flake.nixosModules.niri = {
     pkgs,
     lib,
+    config,
     ...
   }: {
+    imports = [
+      inputs.noctalia-greeter.nixosModules.default
+    ];
+
     programs.niri = {
       enable = true;
       package = self.packages.${pkgs.stdenv.hostPlatform.system}.niri;
+    };
+
+    #services.greetd = {
+    #  enable = true;
+    #  settings = {
+    #    initial_session = {
+    #      command = "${config.programs.niri.package}/bin/niri-session";
+    #      user = "tobias";
+    #    };
+    #  };
+    #};
+
+    programs.noctalia-greeter = {
+      enable = true;
+
+      settings = {
+        cursor = {
+          theme = "Bibata-Modern-Ice";
+          size = 24;
+          path = "${pkgs.bibata-cursors}/share/icons";
+        };
+        keyboard = {
+          layout = "us";
+        };
+      };
     };
   };
 

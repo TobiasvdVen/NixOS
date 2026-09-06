@@ -12,6 +12,7 @@
     import-tree.url = "github:vic/import-tree";
 
     nvf.url = "github:notashelf/nvf";
+    noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";
     nixos-tools.url = "path:./nixos_tools";
     nil.url = "github:oxalica/nil";
 
