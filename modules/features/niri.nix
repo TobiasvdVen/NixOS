@@ -49,9 +49,17 @@
         layout.gaps = 4;
 
         binds = {
-          "Mod+Return".spawn-sh = lib.getExe pkgs.ghostty;
-          "Mod+Q".close-window = _: {};
-          "Mod+S".spawn-sh = "${lib.getExe self'.packages.noctalia} ipc call launcher toggle";
+          "Mod+N".spawn-sh = lib.getExe pkgs.ghostty;
+          "Mod+Esc".close-window = _: {};
+          "Mod+Space".spawn-sh = "${lib.getExe self'.packages.noctalia} ipc call launcher toggle";
+          "Mod+H".focus-column-left = {};
+          "Mod+L".focus-column-right = {};
+          "Mod+J".focus-workspace-down = {};
+          "Mod+K".focus-workspace-up = {};
+        };
+
+        window-rule = {
+          open-maximized = true;
         };
       };
     };
