@@ -50,7 +50,7 @@
 
         binds = {
           "Mod+N".spawn-sh = lib.getExe pkgs.ghostty;
-          "Mod+Esc".close-window = _: {};
+          "Mod+Escape".close-window = _: {};
           "Mod+Space".spawn-sh = "${lib.getExe self'.packages.noctalia} ipc call launcher toggle";
           "Mod+H".focus-column-left = {};
           "Mod+L".focus-column-right = {};
