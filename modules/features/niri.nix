@@ -52,10 +52,23 @@
           "Mod+N".spawn-sh = lib.getExe pkgs.ghostty;
           "Mod+Escape".close-window = _: {};
           "Mod+Space".spawn-sh = "${lib.getExe self'.packages.noctalia} ipc call launcher toggle";
+
+          "Mod+1".toggle-overview = {};
+
           "Mod+H".focus-column-left = {};
           "Mod+L".focus-column-right = {};
           "Mod+J".focus-workspace-down = {};
           "Mod+K".focus-workspace-up = {};
+
+          "Mod+Ctrl+H".focus-monitor-left = {};
+          "Mod+Ctrl+L".focus-monitor-right = {};
+          "Mod+Ctrl+J".focus-workspace-down = {};
+          "Mod+Ctrl+K".focus-workspace-up = {};
+
+          "Mod+Alt+H".move-column-left-or-to-monitor-left = {};
+          "Mod+Alt+L".move-column-right-or-to-monitor-right = {};
+          "Mod+Alt+J".move-window-down-or-to-workspace-down = {};
+          "Mod+Alt+K".move-window-up-or-to-workspace-up = {};
         };
 
         window-rule = {
