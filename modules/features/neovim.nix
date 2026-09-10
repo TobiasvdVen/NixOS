@@ -11,6 +11,12 @@
           (
             {pkgs, ...}: {
               config.vim = {
+                theme = {
+                  enable = true;
+                  name = "tokyonight";
+                  style = "moon";
+                };
+
                 globals.mapleader = " ";
 
                 keymaps = [
@@ -25,6 +31,18 @@
                     mode = "n";
                     action = ":update<cr>";
                     desc = "Save file";
+                  }
+                  {
+                    key = "<leader>jd";
+                    mode = "n";
+                    action = "<cmd>lua vim.lsp.buf.definition()<CR>";
+                    desc = "Go to definition";
+                  }
+                  {
+                    key = "<leader>jr";
+                    mode = "n";
+                    action = "<cmd>lua vim.lsp.buf.references()<CR>";
+                    desc = "Find references";
                   }
                 ];
 
