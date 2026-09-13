@@ -19,6 +19,20 @@
 
                 globals.mapleader = " ";
 
+                options = {
+                  exrc = true;
+                  secure = true;
+                };
+
+                extraPlugins = {
+                  overseer-nvim = {
+                    package = pkgs.vimPlugins.overseer-nvim;
+                    setup = ''
+                      require('overseer').setup()
+                    '';
+                  };
+                };
+
                 keymaps = [
                   {
                     key = "<leader>e";
