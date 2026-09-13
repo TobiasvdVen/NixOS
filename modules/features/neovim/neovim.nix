@@ -24,6 +24,10 @@
                   secure = true;
                 };
 
+                additionalRuntimePaths = [
+                  ./nvim
+                ];
+
                 extraPlugins = {
                   overseer-nvim = {
                     package = pkgs.vimPlugins.overseer-nvim;
