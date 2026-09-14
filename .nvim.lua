@@ -1,8 +1,4 @@
-print("LOADED .nvim.lua")
-
 local project_actions = require("project_actions")
-
-print("LOADED project_actions")
 
 local some_task = {
         name = "SomeTask",
@@ -41,8 +37,4 @@ local actions = {
         { key = "b", task = some_task_2 },
 }
 
-print("REGISTERING project_actions")
-
 project_actions.register(action_leader, actions)
-
-print("REGISTERED project_actions")
