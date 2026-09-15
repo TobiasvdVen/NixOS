@@ -1,5 +1,32 @@
 {
-  flake.nixosModules.audio = {...}: {
+  flake.nixosModules.audio = {...}: let
+    rtconfig = {
+      "context.modules" = [
+        {
+          name = "libpipewire-module-rt";
+          args = {
+            # Real-time priority (1-99, higher = more priority)
+            "rt.prio" = 88;
+
+            # Nice level for non-RT threads (-20 to 19, lower = higher priority)
+            "nice.level" = -11;
+
+            # RT time limits as fraction of period (alternative to above)
+            "rt.time.soft" = -1; # Unlimited
+            "rt.time.hard" = -1; # Unlimited
+
+            # Use rtkit for acquiring RT privileges
+            "uclamp.min" = 0;
+            "uclamp.max" = 1024;
+          };
+          flags = [
+            "ifexists"
+            "nofail"
+          ];
+        }
+      ];
+    };
+  in {
     services = {
       pulseaudio.enable = false;
       pipewire = {
@@ -10,61 +37,11 @@
 
         extraConfig = {
           pipewire = {
-            rtconfig = {
-              "context.modules" = [
-                {
-                  name = "libpipewire-module-rt";
-                  args = {
-                    # Real-time priority (1-99, higher = more priority)
-                    "rt.prio" = 88;
-
-                    # Nice level for non-RT threads (-20 to 19, lower = higher priority)
-                    "nice.level" = -11;
-
-                    # RT time limits as fraction of period (alternative to above)
-                    "rt.time.soft" = -1; # Unlimited
-                    "rt.time.hard" = -1; # Unlimited
-
-                    # Use rtkit for acquiring RT privileges
-                    "uclamp.min" = 0;
-                    "uclamp.max" = 1024;
-                  };
-                  flags = [
-                    "ifexists"
-                    "nofail"
-                  ];
-                }
-              ];
-            };
+            #inherit rtconfig;
           };
 
           pipewire-pulse = {
-            rtconfig = {
-              "context.modules" = [
-                {
-                  name = "libpipewire-module-rt";
-                  args = {
-                    # Real-time priority (1-99, higher = more priority)
-                    "rt.prio" = 88;
-
-                    # Nice level for non-RT threads (-20 to 19, lower = higher priority)
-                    "nice.level" = -11;
-
-                    # RT time limits as fraction of period (alternative to above)
-                    "rt.time.soft" = -1; # Unlimited
-                    "rt.time.hard" = -1; # Unlimited
-
-                    # Use rtkit for acquiring RT privileges
-                    "uclamp.min" = 0;
-                    "uclamp.max" = 1024;
-                  };
-                  flags = [
-                    "ifexists"
-                    "nofail"
-                  ];
-                }
-              ];
-            };
+            #inherit rtconfig;
           };
         };
 
