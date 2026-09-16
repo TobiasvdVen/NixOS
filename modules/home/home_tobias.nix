@@ -25,6 +25,9 @@
       # Linux-compatible way to launch battle.net
       pkgs.faugus-launcher
 
+      # diff tool used by gitfourchette
+      pkgs.meld
+
       inputs.passivate.packages.${pkgs.system}.default
       inputs.gitfourchette.packages.${pkgs.system}.default
       self.packages.${pkgs.system}.neovim
