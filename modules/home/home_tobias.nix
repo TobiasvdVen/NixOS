@@ -13,6 +13,17 @@
       configPath = ".mozilla/firefox";
     };
 
+    programs.fish.enable = true;
+    programs.ghostty = {
+      enable = true;
+      enableFishIntegration = true;
+      settings = {
+        theme = "Abernathy";
+        background-opacity = "0.95";
+        command = "fish";
+      };
+    };
+
     home.packages = [
       pkgs.zed-editor
       pkgs.discord
