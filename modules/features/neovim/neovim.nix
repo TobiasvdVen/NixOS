@@ -118,6 +118,10 @@
                     };
                   };
                 };
+
+                visuals = {
+                  fidget-nvim.enable = true;
+                };
               };
             }
           )
