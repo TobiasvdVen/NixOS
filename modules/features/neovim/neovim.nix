@@ -48,29 +48,45 @@
                 };
 
                 keymaps = [
+                  # Open file explorer
                   {
                     key = "<leader>e";
                     mode = "n";
                     action = "<cmd>lua MiniFiles.open()<cr>";
                     desc = "Files...";
                   }
+
+                  # Save file
                   {
                     key = "<leader>s";
                     mode = "n";
                     action = ":update<cr>";
                     desc = "Save file";
                   }
+
+                  # Jump to ...
+                  # Definition
                   {
                     key = "<leader>jd";
                     mode = "n";
                     action = "<cmd>lua vim.lsp.buf.definition()<CR>";
                     desc = "Go to definition";
                   }
+                  # References
                   {
                     key = "<leader>jr";
                     mode = "n";
                     action = "<cmd>lua vim.lsp.buf.references()<CR>";
                     desc = "Find references";
+                  }
+
+                  # Log
+                  # LSP
+                  {
+                    key = "<leader>lsp";
+                    mode = "n";
+                    action = "<cmd>lua vim.cmd('tabnew ' .. vim.lsp.log.get_filename())<CR>";
+                    desc = "Show LSP log";
                   }
                 ];
 
