@@ -74,6 +74,35 @@
         window-rule = {
           open-maximized = true;
         };
+
+        outputs = {
+          "DP-1" = {
+            position = _: {
+              props = {
+                x = 0;
+                y = 0;
+              };
+            };
+          };
+
+          "DP-2" = {
+            position = _: {
+              props = {
+                x = 1920;
+                y = 0;
+              };
+            };
+          };
+
+          "DP-3" = {
+            position = _: {
+              props = {
+                x = 1920 * 2;
+                y = 0;
+              };
+            };
+          };
+        };
       };
     };
   };
