@@ -20,6 +20,8 @@
     environment.systemPackages = [
       pkgs.proton-vpn
 
+      pkgs.wl-clipboard-rs
+
       # For managing specific Proton versions for gaming with Steam
       pkgs.protonup-ng
 
