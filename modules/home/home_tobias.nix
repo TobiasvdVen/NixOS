@@ -3,7 +3,11 @@
   inputs,
   ...
 }: {
-  flake.homeModules.home-tobias = {pkgs, ...}: {
+  flake.homeModules.home-tobias = {pkgs, ...}: let
+    unstable = import inputs.unstable {
+      system = pkgs.system;
+    };
+  in {
     home.stateVersion = "25.11";
 
     home.username = "tobias";
@@ -34,7 +38,7 @@
       pkgs.qalculate-qt
 
       # Linux-compatible way to launch battle.net
-      pkgs.faugus-launcher
+      unstable.faugus-launcher
 
       # diff tool used by gitfourchette
       pkgs.meld

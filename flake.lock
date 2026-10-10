@@ -550,6 +550,7 @@
         "noctalia-greeter": "noctalia-greeter",
         "nvf": "nvf",
         "passivate": "passivate",
+        "unstable": "unstable",
         "wrapper-modules": "wrapper-modules"
       }
     },
@@ -685,6 +686,22 @@
       "original": {
         "owner": "TobiasvdVen",
         "repo": "TvdvenTools",
+        "type": "github"
+      }
+    },
+    "unstable": {
+      "locked": {
+        "lastModified": 1790689126,
+        "narHash": "sha256-ilerN1WLSvF+HMjziC/Wv99J5y02maDH+6hZPwsORKg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b4fd65b198c599cbe814fcb9f42d25d021595ec9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
