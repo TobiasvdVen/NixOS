@@ -120,12 +120,27 @@
 
                   nix.enable = true;
                   markdown.enable = true;
+
                   rust = {
                     enable = true;
                     extensions.crates-nvim.enable = true;
                   };
+
                   toml.enable = true;
-                  csharp.enable = true;
+
+                  csharp = {
+                    enable = true;
+
+                    lsp = {
+                      enable = true;
+                    };
+
+                    format = {
+                      enable = true;
+                      type = ["csharpier"];
+                    };
+                  };
+
                   lua.enable = true;
                 };
 
