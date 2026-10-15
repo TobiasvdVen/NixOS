@@ -80,6 +80,14 @@
                     desc = "Find references";
                   }
 
+                  # Diagnostics ...
+                  {
+                    key = "<leader>dj";
+                    mode = "n";
+                    action = "<cmd>lua vim.diagnostic.open_float()<CR>";
+                    desc = "Show diagnostic error";
+                  }
+
                   # Log
                   # LSP
                   {
