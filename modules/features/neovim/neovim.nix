@@ -9,7 +9,7 @@
     };
   in {
     packages.neovim =
-      (inputs.nvf.lib.neovimConfiguration {
+      (inputs.nvf-fork.lib.neovimConfiguration {
         pkgs = unstable;
         modules = [
           (
@@ -52,12 +52,20 @@
                 };
 
                 keymaps = [
+                  # Plugins
                   # Open file explorer
                   {
                     key = "<leader>e";
                     mode = "n";
                     action = "<cmd>lua MiniFiles.open()<cr>";
                     desc = "Files...";
+                  }
+                  # Presenterm preview
+                  {
+                    key = "<leader>vp";
+                    mode = "n";
+                    action = "<cmd>Presenterm preview<cr>";
+                    desc = "Presenter preview";
                   }
 
                   # Save file
@@ -76,6 +84,7 @@
                     action = "<cmd>lua vim.lsp.buf.definition()<CR>";
                     desc = "Go to definition";
                   }
+
                   # References
                   {
                     key = "<leader>jr";
@@ -161,6 +170,8 @@
                     };
                   };
                 };
+
+                presenterm.enable = true;
 
                 visuals = {
                   fidget-nvim.enable = true;
