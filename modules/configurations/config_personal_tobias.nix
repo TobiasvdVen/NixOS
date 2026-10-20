@@ -20,6 +20,8 @@
       };
     };
 
+    services.udisks2.enable = true;
+
     home-manager.users.tobias = self.homeModules.home-tobias;
   };
 }

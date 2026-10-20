@@ -43,6 +43,12 @@
       # diff tool used by gitfourchette
       pkgs.meld
 
+      pkgs.kdePackages.dolphin
+      pkgs.kdePackages.kio-extras
+      pkgs.kdePackages.kio
+      pkgs.kdePackages.kio-fuse
+      pkgs.libmtp
+
       inputs.passivate.packages.${pkgs.system}.default
       inputs.gitfourchette.packages.${pkgs.system}.default
       self.packages.${pkgs.system}.neovim
