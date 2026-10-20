@@ -3,10 +3,14 @@
     self,
     pkgs,
     ...
-  }: {
+  }: let
+    unstable = import inputs.unstable {
+      system = pkgs.system;
+    };
+  in {
     packages.neovim =
       (inputs.nvf.lib.neovimConfiguration {
-        inherit pkgs;
+        pkgs = unstable;
         modules = [
           (
             {pkgs, ...}: {
