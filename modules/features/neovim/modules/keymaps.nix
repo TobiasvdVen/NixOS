@@ -5,8 +5,6 @@
         enable = true;
         setupOpts = {
           notify = true;
-          triggers = {
-          };
         };
       };
     };

@@ -17,6 +17,10 @@
       };
     };
 
+    git.neogit = {
+      enable = true;
+    };
+
     visuals = {
       fidget-nvim.enable = true;
     };
