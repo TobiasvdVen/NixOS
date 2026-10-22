@@ -11,7 +11,7 @@
     neovim_configuration = inputs.nvf-fork.lib.neovimConfiguration {
       pkgs = unstable;
       modules = [
-        ./../../../neovim_modules/keymaps.nix
+        ./modules/keymaps.nix
       ];
     };
   in {

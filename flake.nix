@@ -35,8 +35,6 @@
       ./modules/home/home_monique.nix
       ./modules/home/home_tobias.nix
 
-      ./modules/hosts/tobias-pc.nix
-
       ./modules/features/audio.nix
       ./modules/features/disable_sleep.nix
       ./modules/features/kde.nix
@@ -46,6 +44,8 @@
       ./modules/features/xserver.nix
       ./modules/features/zsa.nix
       ./modules/features/neovim/neovim.nix
+
+      ./modules/parts.nix
     ];
 
     output = inputs.flake-parts.lib.mkFlake {inherit inputs;} {
