@@ -171,7 +171,14 @@
                   };
                 };
 
-                presenterm.enable = true;
+                presenterm = {
+                  enable = true;
+                  setupOpts = {
+                    preview = {
+                      presentation_preview_sync = true;
+                    };
+                  };
+                };
 
                 visuals = {
                   fidget-nvim.enable = true;

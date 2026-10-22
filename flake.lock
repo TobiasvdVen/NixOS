@@ -565,11 +565,11 @@
         "nixpkgs": "nixpkgs_10"
       },
       "locked": {
-        "lastModified": 1792269824,
-        "narHash": "sha256-XwN7hTfGiAZQpTZp8byZc+n+4VhaHwSr7dk599r9izU=",
+        "lastModified": 1792529937,
+        "narHash": "sha256-FFM5w4mBXc+3Ka6b+mTDSmRt0bLAD6Wn8YiuvwIuRW8=",
         "owner": "TobiasvdVen",
         "repo": "nvf",
-        "rev": "75e6a50586b2a8a742a8af0a6bbb53ae6d411c73",
+        "rev": "4af9aefbb06ff8c24b208a25ee99bbdabc3e39bb",
         "type": "github"
       },
       "original": {
