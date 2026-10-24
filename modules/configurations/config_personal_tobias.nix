@@ -22,6 +22,12 @@
 
     services.udisks2.enable = true;
 
+    nix.gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 16d";
+    };
+
     home-manager.users.tobias = self.homeModules.home-tobias;
   };
 }
